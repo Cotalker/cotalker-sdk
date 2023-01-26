@@ -21,7 +21,7 @@ If not we recommend the use of [NVM] (https://github.com/nvm-sh/nvm) which you c
 and then you can install node
 
 ```
-nvm install node
+    nvm install node
 ```
 
 ## How to Install and Run the Project
@@ -36,10 +36,10 @@ With node installed you can use npm, its default pachage manager. To install cot
 
 You can now import Cotalker's API and use its methods to communicate with your workspace, by example:
 
-```
-import CotalkerAPI from "cotalker-sdk" 
+```typescript
+    import CotalkerAPI from "cotalker-sdk" 
 
-const token = "..."
-const  helloAPI = new CotalkerAPI(token)
+    const token = "..."
+    const  helloAPI = new CotalkerAPI(token)
 
 ```
