@@ -3,6 +3,15 @@
   "version": "0.0.1",
   "description": "Cotalker's partners lib",
   "main": "lib/index.js",
+  "author": "cotalker",
+  "homepage": "https://github.com/Cotalker/cotalker-sdk#readme",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Cotalker/cotalker-sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Cotalker/cotalker-sdk/issues"
+  },
   "scripts": {
     "build": "npx tsc",
     "prepare": "npm run build",
@@ -12,7 +21,6 @@
   "keywords": [
     "cotalker"
   ],
-  "author": "",
   "license": "ISC",
   "files": [
     "lib"
