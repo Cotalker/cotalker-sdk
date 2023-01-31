@@ -1,7 +1,6 @@
 import { ScheduleBody, SchedulePostResponse  } from "@customTypes/COTTypes/scheduler"
-import HttpClient from "../../utils/HttpClient"
+import HttpClient from "@utils/HttpClient"
 import { InternalAxiosRequestConfig } from 'axios'
-
 
 export default class COTSchedulerClient extends HttpClient{
   private _cotalkerToken: string
@@ -33,5 +32,3 @@ export default class COTSchedulerClient extends HttpClient{
     return await this.instance.post('/api/uservices/scheduler', body)
   }
 } 
-
-

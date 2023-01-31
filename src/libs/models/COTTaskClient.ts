@@ -1,8 +1,7 @@
-import { COTTask, COTTaskPatchData, COTTaskPostData, COTTaskQuery, FilteredTasks, multiTaskBody, queryTaskFilterOptions } from '../../customTypes/COTTypes/COTTask'
-import { ObjectId } from '../../customTypes/custom'
-import HttpClient from "../../utils/HttpClient"
+import { COTTask, COTTaskPatchData, COTTaskPostData, COTTaskQuery, FilteredTasks, multiTaskBody, queryTaskFilterOptions } from '@customTypes/COTTypes/COTTask'
+import { ObjectId } from '@customTypes/custom'
+import HttpClient from "@utils/HttpClient"
 import { InternalAxiosRequestConfig } from 'axios'
-
 
 export default class COTTaskClient extends HttpClient{
   private _cotalkerToken: string
@@ -61,4 +60,3 @@ export default class COTTaskClient extends HttpClient{
     return (await this.instance.get<FilteredTasks[]>(`/api/tasks/${taskGroupId}/task?filter=${filterId}&${queryParams}`))
   }
 } 
-

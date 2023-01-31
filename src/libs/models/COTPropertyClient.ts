@@ -1,9 +1,9 @@
 import { URLSearchParams } from 'url'
-import HttpClient from "../../utils/HttpClient"
+import HttpClient from "@utils/HttpClient"
+import { ObjectId } from "@customTypes/custom"
 import { InternalAxiosRequestConfig } from 'axios'
-import { ObjectId } from "../../customTypes/custom"
-import { isActiveOptions, JSONPatchBody } from "../../customTypes/COTTypes/APIGenerics"
-import { COTProperty, COTPropertyPostBody } from "../../customTypes/COTTypes/COTProperty"
+import { isActiveOptions, JSONPatchBody } from "@customTypes/COTTypes/APIGenerics"
+import { COTProperty, COTPropertyPostBody } from "@customTypes/COTTypes/COTProperty"
 
 export default class COTPropertyClient extends HttpClient{
   private _cotalkerToken: string

@@ -1,8 +1,6 @@
-import { COTChannel, COTChannelPostBody } from "../../customTypes/COTTypes/COTChannel"
-
-import HttpClient from "../../utils/HttpClient"
+import HttpClient from "@utils/HttpClient"
 import { InternalAxiosRequestConfig } from 'axios'
-
+import { COTChannel, COTChannelPostBody } from "@customTypes/COTTypes/COTChannel"
 
 export default class COTChannelClient extends HttpClient{
   private _cotalkerToken: string
@@ -31,5 +29,3 @@ export default class COTChannelClient extends HttpClient{
     return (await this.instance.post<{data:T}>('/api/v2/channels', body)).data
   }
 } 
-
-

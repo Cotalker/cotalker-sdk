@@ -12,13 +12,14 @@
     "target": "ES2020",
     "module": "commonjs",
     "skipLibCheck": true,  
-    "typeRoots": ["node_modules/@types"],
+    "typeRoots": ["node_modules/@types", "src/types", "src/types/COTTypes"],
     "outDir": "lib",
     "baseUrl": ".",
     "paths": {
       "@libs/*": ["src/libs/*"],
-      "@utils/*": ["sc/utils/*"],
-      "@customTypes/*": ["src/customTypes/*"]
+      "@utils/*": ["src/utils/*"],
+      "@customTypes/*": ["src/customTypes/*"],
+      "@models/*": ["src/libs/models/*"]
     }
   },
   "include": ["src/**/*.ts"],

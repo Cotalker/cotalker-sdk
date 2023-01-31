@@ -1,8 +1,7 @@
-import { COTFileUploaded } from "../../customTypes/COTTypes/COTFile"
-import { ObjectId } from '../../customTypes/custom'
-import HttpClient from "../../utils/HttpClient"
+import { COTFileUploaded } from "@customTypes/COTTypes/COTFile"
+import { ObjectId } from '@customTypes/custom'
+import HttpClient from "@utils/HttpClient"
 import { InternalAxiosRequestConfig } from 'axios'
-
 
 export default class COTFileClient extends HttpClient{
   private _cotalkerToken: string

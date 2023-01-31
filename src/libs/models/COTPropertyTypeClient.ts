@@ -1,9 +1,9 @@
-import { COTPropertyType } from "../../customTypes/COTTypes/COTPropertyType"
-import { COTProperty, searchPropertyQueryOptions } from "../../customTypes/COTTypes/COTProperty"
-import HttpClient from "../../utils/HttpClient"
-import { InternalAxiosRequestConfig } from 'axios'
-import { ObjectId } from '../../customTypes/custom'
 import { URLSearchParams } from 'url'
+import HttpClient from "@utils/HttpClient"
+import { InternalAxiosRequestConfig } from 'axios'
+import { ObjectId } from '@customTypes/custom'
+import { COTPropertyType } from "@customTypes/COTTypes/COTPropertyType"
+import { COTProperty, searchPropertyQueryOptions } from "@customTypes/COTTypes/COTProperty"
 
 export default class COTPropertyTypeClient extends HttpClient{
   private _cotalkerToken: string
@@ -60,6 +60,3 @@ export default class COTPropertyTypeClient extends HttpClient{
     return (await this.instance.get(`/api/v2/properties?${new URLSearchParams(query).toString()}`)).data?.properties ?? []
   }
 } 
-
-
-

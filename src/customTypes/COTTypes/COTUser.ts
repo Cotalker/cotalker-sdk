@@ -1,4 +1,4 @@
-import { ObjectId } from "../custom"
+import { ObjectId } from "@customTypes/custom"
 
 export declare interface COTUser {
   _id: ObjectId

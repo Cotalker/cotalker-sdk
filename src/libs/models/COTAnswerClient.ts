@@ -1,9 +1,7 @@
-import { COTAnswer } from "../../customTypes/COTTypes/COTAnswer"
-import { ObjectId } from '../../customTypes/custom'
-
-import HttpClient from "../../utils/HttpClient"
+import HttpClient from '@utils/HttpClient'
 import { InternalAxiosRequestConfig } from 'axios'
-
+import { ObjectId } from '@customTypes/custom'
+import { COTAnswer } from "@customTypes/COTTypes/COTAnswer"
 
 export default class COTAnswerClient extends HttpClient{
   private _cotalkerToken: string
@@ -33,4 +31,3 @@ export default class COTAnswerClient extends HttpClient{
   }
   
 } 
-

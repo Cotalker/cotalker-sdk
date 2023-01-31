@@ -1,4 +1,4 @@
-import { CotalkerAPI } from './libs/CotalkerAPI'
+import { CotalkerAPI } from '@libs/CotalkerAPI'
 
 export default CotalkerAPI 
 

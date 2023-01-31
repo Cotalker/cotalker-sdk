@@ -1,8 +1,7 @@
-import { COTSMState } from "../../customTypes/COTTypes/COTSMState"
-import { ObjectId } from '../../customTypes/custom'
-import HttpClient from "../../utils/HttpClient"
+import HttpClient from "@utils/HttpClient"
 import { InternalAxiosRequestConfig } from 'axios'
-
+import { ObjectId } from '@customTypes/custom'
+import { COTSMState } from "@customTypes/COTTypes/COTSMState"
 
 export default class COTSMStateClient extends HttpClient{
   private _cotalkerToken: string
@@ -29,6 +28,5 @@ export default class COTSMStateClient extends HttpClient{
 
   public async getSmStates(taskGroup: ObjectId): Promise<COTSMState[]> {
     return (await this.instance.get(`/api/v1/tasks/${taskGroup}/sm/smstate/all`))
-  }
-  
+  }  
 } 

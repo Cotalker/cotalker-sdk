@@ -1,4 +1,4 @@
-import { ObjectId } from "../custom"
+import { ObjectId } from "@customTypes/custom"
 
 export declare class COTTask {
   _id: ObjectId
