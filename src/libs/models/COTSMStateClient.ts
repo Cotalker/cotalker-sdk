@@ -1,7 +1,7 @@
-import HttpClient from "@utils/HttpClient"
+import HttpClient from '@utils/HttpClient'
 import { InternalAxiosRequestConfig } from 'axios'
 import { ObjectId } from '@customTypes/custom'
-import { COTSMState } from "@customTypes/COTTypes/COTSMState"
+import { COTSMState } from '@customTypes/COTTypes/COTSMState'
 
 export default class COTSMStateClient extends HttpClient{
   private _cotalkerToken: string

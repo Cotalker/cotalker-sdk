@@ -1,4 +1,4 @@
-import { ObjectId } from "@customTypes/custom"
+import { ObjectId } from '@customTypes/custom'
 
 export type SendMsgBody = {
     channel: ObjectId,

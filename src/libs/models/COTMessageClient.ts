@@ -1,6 +1,6 @@
-import HttpClient from "@utils/HttpClient"
+import HttpClient from '@utils/HttpClient'
 import { InternalAxiosRequestConfig } from 'axios'
-import { SendMsgBody } from "@customTypes/COTTypes/COTMessage"
+import { SendMsgBody } from '@customTypes/COTTypes/COTMessage'
 
 export default class COTMessageClient extends HttpClient{
   private _cotalkerToken: string
@@ -14,8 +14,8 @@ export default class COTMessageClient extends HttpClient{
     this.instance.interceptors.request.use(
       this._handleRequest,
       this._handleError,
-      )
-    }
+    )
+  }
     
   private _handleRequest = async (config: InternalAxiosRequestConfig) => {
     if (!config.headers) return

@@ -1,9 +1,9 @@
-import { ObjectId } from "@customTypes/custom"
+import { ObjectId } from '@customTypes/custom'
 
 export declare interface COTSurvey {
   chat: QuestionChat[]
   _id: ObjectId
-  code: String
+  code: string
 }
 
 export declare interface QuestionChat {

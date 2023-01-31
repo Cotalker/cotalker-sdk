@@ -1,5 +1,5 @@
-import { COTQuestionContentType } from "./COTQuestion"
-import { ObjectId } from "@customTypes/custom"
+import { COTQuestionContentType } from './COTQuestion'
+import { ObjectId } from '@customTypes/custom'
 
 export declare type COTAnswerData = {
   code: string[]

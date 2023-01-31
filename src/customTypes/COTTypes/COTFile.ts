@@ -1,4 +1,4 @@
-import { ObjectId } from "@customTypes/custom"
+import { ObjectId } from '@customTypes/custom'
 
 type COTFileContentType = 'image' | 'audio' | 'video' | 'document'
 type COTFileStatus = 'pending'|'processing'|'uploaded'|'deleted'|'error'

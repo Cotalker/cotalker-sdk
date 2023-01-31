@@ -1,4 +1,4 @@
-import { ObjectId } from "@customTypes/custom"
+import { ObjectId } from '@customTypes/custom'
 
 export declare interface ScheduleBody {
   code: string; owner: string;

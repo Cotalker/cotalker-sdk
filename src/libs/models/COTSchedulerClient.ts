@@ -1,5 +1,5 @@
-import { ScheduleBody, SchedulePostResponse  } from "@customTypes/COTTypes/scheduler"
-import HttpClient from "@utils/HttpClient"
+import { ScheduleBody, SchedulePostResponse  } from '@customTypes/COTTypes/scheduler'
+import HttpClient from '@utils/HttpClient'
 import { InternalAxiosRequestConfig } from 'axios'
 
 export default class COTSchedulerClient extends HttpClient{

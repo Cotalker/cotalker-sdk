@@ -1,4 +1,4 @@
-import { ObjectId } from "@customTypes/custom"
+import { ObjectId } from '@customTypes/custom'
 
 export declare interface COTUser {
   _id: ObjectId
@@ -64,6 +64,7 @@ interface Name {
   displayName: string
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Extra {
 }
 

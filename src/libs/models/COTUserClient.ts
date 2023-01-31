@@ -1,9 +1,9 @@
 import * as querystring from 'querystring'
-import HttpClient from "@utils/HttpClient"
+import HttpClient from '@utils/HttpClient'
 import { InternalAxiosRequestConfig } from 'axios'
 import { ObjectId } from '@customTypes/custom'
 import { JSONPatchBody } from '@customTypes/COTTypes/APIGenerics'
-import { COTUser, COTUserActivity } from "@customTypes/COTTypes/COTUser"
+import { COTUser, COTUserActivity } from '@customTypes/COTTypes/COTUser'
 
 export default class COTUserClient extends HttpClient{
   private _cotalkerToken: string

@@ -1,4 +1,4 @@
-import { ObjectId } from "@customTypes/custom"
+import { ObjectId } from '@customTypes/custom'
 
 export declare class COTTask {
   _id: ObjectId
@@ -11,7 +11,7 @@ export declare class COTTask {
   closedAt: string
   modifiedStateAt: string
 
-  channelType: 'bound' | 'unbound' | 'unbound-hierarchy';
+  channelType: 'bound' | 'unbound' | 'unbound-hierarchy'
 
   status1?: ObjectId
   status2?: ObjectId
@@ -28,7 +28,7 @@ export declare class COTTask {
   validators: ObjectId[]
 
   // Owner - User that is responsible for Task Creation. E.g., set up scheduler
-  owner: ObjectId;
+  owner: ObjectId
 
   // userList: Internal field
   // contains array with all users that have visibility: Editors + Followers + Viewers

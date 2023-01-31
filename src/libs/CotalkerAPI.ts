@@ -45,17 +45,14 @@ export class CotalkerAPI {
     this._cotpropertyClient = new COTPropertyClient(token, baseURL) 
     this._cotschedulerClient = new COTSchedulerClient(token, baseURL) 
     this._cotpropertyTypeClient = new COTPropertyTypeClient(token, baseURL)  
-   }
+  }
   
-
   /* COTLogin*/
-
   static async login(email:string, password:string){
     return await COTLoginClient.login(email, password)
   }
   
   /* COTScheduler*/
-
   async runSchedule(body: ScheduleBody){
     return await this._cotschedulerClient.runSchedule(body)
   }

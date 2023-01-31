@@ -1,6 +1,6 @@
 import { COTTask, COTTaskPatchData, COTTaskPostData, COTTaskQuery, FilteredTasks, multiTaskBody, queryTaskFilterOptions } from '@customTypes/COTTypes/COTTask'
 import { ObjectId } from '@customTypes/custom'
-import HttpClient from "@utils/HttpClient"
+import HttpClient from '@utils/HttpClient'
 import { InternalAxiosRequestConfig } from 'axios'
 
 export default class COTTaskClient extends HttpClient{

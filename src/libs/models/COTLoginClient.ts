@@ -1,4 +1,4 @@
-import HttpClient from "@utils/HttpClient"
+import HttpClient from '@utils/HttpClient'
 import { InternalAxiosRequestConfig } from 'axios'
 
 export default class COTLoginClient extends HttpClient{

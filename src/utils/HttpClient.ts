@@ -8,8 +8,8 @@ declare module 'axios' {
 }
 
 export default abstract class HttpClient {
-  protected readonly instance: AxiosInstance;
-
+  protected readonly instance: AxiosInstance
+  private waitTime
   public constructor(baseURL: string, keepAlive?: boolean) {
     
     if (keepAlive) {
@@ -30,7 +30,7 @@ export default abstract class HttpClient {
       this._handleResponse,
       this._handleError,
     )
-  };
+  }
 
   static async post<T>(url: string, headers: Record<string, string>, body: Record<string, unknown>): Promise<T> {
     return (await axios({ url, data: body, method: 'post', headers }))?.data
@@ -42,29 +42,29 @@ export default abstract class HttpClient {
 
   private _handleResponse = ({ data, }: AxiosResponse) => {
     return data    
-  };
+  }
 
   protected _handleError = async (axiosError: AxiosError): Promise<any> => {
     const { config, response } = axiosError
     switch (response.status) {
-      case 429:
-        console.error(`Retrying ${config.method} ${config.url}`)  
-        const waitTime = Number(response.headers['retry-after'] ?? response.headers['Retry-After'])*1000
-        await new Promise(resolve=>setTimeout(resolve, waitTime))
-        return (axios(config))
-      case 401:
-        throw new Error("Bad authorization token. Your token has expired.")
-      case 403:
-        throw new Error("You do not have permissions to do this action! ")
-      case 404:
-        console.error("ID not found", config.url)
-        return Promise.resolve({data: null})
-      case 500:
-        console.error(" Cotalker API replied with internal error", response.data)
-        return Promise.resolve({data: null})
-      default:
-        break;
+    case 429:
+      console.error(`Retrying ${config.method} ${config.url}`)  
+      this.waitTime = Number(response.headers['retry-after'] ?? response.headers['Retry-After'])*1000
+      await new Promise(resolve=>setTimeout(resolve, this.waitTime))
+      return (axios(config))
+    case 401:
+      throw new Error('Bad authorization token. Your token has expired.')
+    case 403:
+      throw new Error('You do not have permissions to do this action! ')
+    case 404:
+      console.error('ID not found', config.url)
+      return Promise.resolve({data: null})
+    case 500:
+      console.error(' Cotalker API replied with internal error', response.data)
+      return Promise.resolve({data: null})
+    default:
+      break
     } 
-    return Promise.reject(axiosError);
+    return Promise.reject(axiosError)
   }
 }

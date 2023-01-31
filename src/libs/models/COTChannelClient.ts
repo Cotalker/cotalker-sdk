@@ -1,6 +1,6 @@
-import HttpClient from "@utils/HttpClient"
+import HttpClient from '@utils/HttpClient'
 import { InternalAxiosRequestConfig } from 'axios'
-import { COTChannel, COTChannelPostBody } from "@customTypes/COTTypes/COTChannel"
+import { COTChannel, COTChannelPostBody } from '@customTypes/COTTypes/COTChannel'
 
 export default class COTChannelClient extends HttpClient{
   private _cotalkerToken: string

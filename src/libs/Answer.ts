@@ -1,8 +1,8 @@
-import { CotalkerAPI } from "./CotalkerAPI"
+import { CotalkerAPI } from './CotalkerAPI'
 import { ObjectId } from '@customTypes/custom'
-import { COTAnswer, COTAnswerData } from "@customTypes/COTTypes/COTAnswer"
-import { COTProperty } from "@customTypes/COTTypes/COTProperty"
-import { COTUser } from "@customTypes/COTTypes/COTUser"
+import { COTAnswer, COTAnswerData } from '@customTypes/COTTypes/COTAnswer'
+import { COTProperty } from '@customTypes/COTTypes/COTProperty'
+import { COTUser } from '@customTypes/COTTypes/COTUser'
 
 export class Answer {
   public createdAt: Date
