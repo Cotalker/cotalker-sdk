@@ -107,3 +107,11 @@ export declare type FilteredTasks = {
   }[]
   tasks: COTTask[]
 }
+
+
+export type multiTaskBody = {
+  cmd: {
+    method: string, 
+    task: COTTask
+  }[]
+}

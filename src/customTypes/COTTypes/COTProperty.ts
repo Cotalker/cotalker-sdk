@@ -13,3 +13,7 @@ export declare interface COTProperty {
 }
 
 export declare type COTPropertyPostBody = Omit<COTProperty,'_id'|'createdAt'|'modifiedAt'>
+
+export type searchPropertyQueryOptions = {
+  parent?: string | string[]
+} 
