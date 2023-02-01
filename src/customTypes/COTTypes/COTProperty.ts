@@ -16,4 +16,4 @@ export declare type COTPropertyPostBody = Omit<COTProperty,'_id'|'createdAt'|'mo
 
 export type searchPropertyQueryOptions = {
   parent?: string | string[]
-} 
+}
