@@ -3,7 +3,7 @@ import HttpClient from '@utils/HttpClient'
 import { ObjectId } from '@customTypes/custom'
 import { InternalAxiosRequestConfig } from 'axios'
 import { isActiveOptions, JSONPatchBody } from '@customTypes/COTTypes/APIGenerics'
-import { COTProperty, COTPropertyPostBody } from '@customTypes/COTTypes/COTProperty'
+import { COTProperty } from '@customTypes/COTTypes/COTProperty'
 
 export default class COTPropertyClient extends HttpClient{
   private _cotalkerToken: string
@@ -47,7 +47,7 @@ export default class COTPropertyClient extends HttpClient{
       `/api/v2/properties?${qParams.toString()}`)).data?.properties
   }
 
-  public async postProperty<T extends COTProperty>(property: COTPropertyPostBody): Promise<T> {
+  public async postProperty<T extends COTProperty>(property: COTProperty): Promise<T> {
     return (await this.instance.post<{data: T}>('/api/v2/properties', property)).data
   }
 

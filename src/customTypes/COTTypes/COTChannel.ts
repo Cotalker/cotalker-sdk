@@ -7,5 +7,3 @@ export declare interface COTChannel {
   nameDisplay: string
   userIds: string[]
 }
-
-export declare type COTChannelPostBody = Omit<COTChannel,'_id'>

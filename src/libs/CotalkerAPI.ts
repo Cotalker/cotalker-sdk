@@ -14,9 +14,9 @@ import { ObjectId } from '@customTypes/custom'
 import { COTUser } from '@customTypes/COTTypes/COTUser'
 import { ScheduleBody } from '@customTypes/COTTypes/scheduler'
 import { SendMsgBody } from '@customTypes/COTTypes/COTMessage'
-import { COTChannelPostBody } from '@customTypes/COTTypes/COTChannel'
+import { COTChannel } from '@customTypes/COTTypes/COTChannel'
 import { isActiveOptions, JSONPatchBody } from '@customTypes/COTTypes/APIGenerics'
-import { COTProperty, COTPropertyPostBody, searchPropertyQueryOptions } from '@customTypes/COTTypes/COTProperty'
+import { COTProperty, searchPropertyQueryOptions } from '@customTypes/COTTypes/COTProperty'
 import { COTTaskPatchData, COTTaskPostData, COTTaskQuery, multiTaskBody, queryTaskFilterOptions } from '@customTypes/COTTypes/COTTask'
 
 export class CotalkerAPI {
@@ -125,7 +125,7 @@ export class CotalkerAPI {
 
   /* COTChannels */
   
-  async getChannel(body: COTChannelPostBody){
+  async getChannel(body: COTChannel){
     return await this._cotchannelClient.createChannel(body)
   }
 
@@ -157,7 +157,7 @@ export class CotalkerAPI {
   async getSubproperties(property:COTProperty| COTProperty, isActive?:isActiveOptions){
     return await this._cotpropertyClient.getSubproperties(property, isActive)
   }
-  async postPropety(property: COTPropertyPostBody){
+  async postPropety(property: COTProperty){
     return await this._cotpropertyClient.postProperty(property)
   }
   async patchPropety(propertyId: ObjectId, body: Partial<COTProperty>){
