@@ -1,6 +1,6 @@
 import { ObjectId } from '@customTypes/custom'
 /* 
-Debiese haber un tipo general para el survey, api o no? Es una idea nada mas, no esta implementado.
+A general kind of Survey may be needed? Not implemented.
 */
 export declare type SurveyAPI = {
     _id: ObjectId
