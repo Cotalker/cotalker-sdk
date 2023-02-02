@@ -1,6 +1,6 @@
 import HttpClient from '@utils/HttpClient'
 import { InternalAxiosRequestConfig } from 'axios'
-import { SendMsgBody, EditMsgBody } from '@customTypes/COTTypes/COTMessage'
+import { SendMsgBody, EditMsgBody, RmMsgBody } from '@customTypes/COTTypes/COTMessage'
 import { ObjectId } from '@customTypes/custom'
 
 export default class COTMessageClient extends HttpClient{
@@ -31,5 +31,9 @@ export default class COTMessageClient extends HttpClient{
   
   async editMessage<T>(_messageId: ObjectId, body: EditMsgBody): Promise<T> {
     return (await this.instance.patch<{data:T}>('/api/v1/messages/${_messageId}', body)).data
+  }
+  
+  async removeMessage<T>(_messageId: ObjectId, body: RmMsgBody): Promise<T> {
+    return (await this.instance.patch<{data:T}>('/api/v1/messages/${_messageId}/remove', body)).data
   }
 } 
