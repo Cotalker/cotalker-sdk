@@ -7,3 +7,9 @@ export type SendMsgBody = {
     isSaved: 2,
     sentBy: ObjectId
   } 
+
+ export type EditMsgBody = {
+    channel: ObjectId,
+    content: string,
+    isSaved: 16,
+  } 
