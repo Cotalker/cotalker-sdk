@@ -3,7 +3,7 @@ import { ObjectId } from '@customTypes/custom'
 export declare interface COTSurvey {
   chat: QuestionChat[]
   _id: ObjectId
-  code: string
+  code: String
 }
 
 export declare interface QuestionChat {
@@ -12,8 +12,8 @@ export declare interface QuestionChat {
 }
 
 export declare interface Question {
-  identifier: string,
-  display: string[]
-  contentType: string
-  code: string
+  identifier: String,
+  display: String[]
+  contentType: String
+  code: String
 }
