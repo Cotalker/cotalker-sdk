@@ -1,6 +1,7 @@
 import HttpClient from '@utils/HttpClient'
 import { InternalAxiosRequestConfig } from 'axios'
-import { SendMsgBody } from '@customTypes/COTTypes/COTMessage'
+import { SendMsgBody, EditMsgBody } from '@customTypes/COTTypes/COTMessage'
+import { ObjectId } from '@customTypes/custom'
 
 export default class COTMessageClient extends HttpClient{
   private _cotalkerToken: string
@@ -26,5 +27,9 @@ export default class COTMessageClient extends HttpClient{
   }
   async sendMessage<T>(body: SendMsgBody): Promise<T> {
     return (await this.instance.post<{data:T}>('/api/v1/messages', body)).data
+  }
+  
+  async editMessage<T>(_messageId: ObjectId, body: EditMsgBody): Promise<T> {
+    return (await this.instance.patch<{data:T}>('/api/v1/messages/${_messageId}', body)).data
   }
 } 
