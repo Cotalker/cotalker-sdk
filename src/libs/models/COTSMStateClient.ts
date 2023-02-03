@@ -1,32 +1,16 @@
-import HttpClient from '@utils/HttpClient'
-import { InternalAxiosRequestConfig } from 'axios'
 import { ObjectId } from '@customTypes/custom'
 import { COTSMState } from '@customTypes/COTTypes/COTSMState'
+import { AxiosInstance } from 'axios'
 
-export default class COTSMStateClient extends HttpClient{
-  private _cotalkerToken: string
-  public constructor(token: string, baseURL?:string) {
-    super(baseURL ?? 'https://staging.cotalker.com', false)
-    this._cotalkerToken = (token ?? process.env.COTALKER_TOKEN ?? '').replace(/^Bearer /g, '')
-    this._initializeRequestInterceptor()
-  }
+export default class COTSMStateClient {
+  protected readonly _instance: AxiosInstance
 
-  private _initializeRequestInterceptor = () => {
-    this.instance.interceptors.request.use(
-      this._handleRequest,
-      this._handleError,
-    )
-  }
-
-  private _handleRequest = async (config: InternalAxiosRequestConfig) => {
-    if (!config.headers) return
-    config.headers['Authorization'] = `Bearer ${this._cotalkerToken}`
-    config.headers['Content-Type'] = 'application/json'
-    config.headers['admin'] = 'true'
-    return config
+  public constructor(instance: AxiosInstance) {
+    this._instance = instance
   }
 
   public async getSmStates(taskGroup: ObjectId): Promise<COTSMState[]> {
-    return (await this.instance.get(`/api/v1/tasks/${taskGroup}/sm/smstate/all`))
-  }  
-} 
+    const smState = await (this._instance.get(`/api/v1/tasks/${taskGroup}/sm/smstate/all`))
+    return smState
+  }
+}

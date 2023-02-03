@@ -16,50 +16,49 @@ export declare type COTQuestionContentType =
 'application/vnd.cotalker.survey+api' |
 'application/vnd.cotalker.survey+survey'
 
-export declare type COTQuestionExec = {
-  context?: string
-  src?: string
+export declare interface COTQuestionExec {
+  context?: string;
+  src?: string;
 }
 
-
-export type COTQuestionExecFilter = {
-  context?: string
-  filter?: string
-  src?: string
+export interface COTQuestionExecFilter {
+  context?: string;
+  filter?: string;
+  src?: string;
 }
 
 export declare interface COTQuestion {
   contentType: COTQuestionContentType;
-  display: string[]
-  code: string[]
-  identifier: string
-  symbolizes?: string
-  group: ObjectId
-  company: ObjectId
-  min: number
-  max: number
-  isActive: boolean
-  modifiedAt: Date
-  hideEmpty: boolean
-  isSystemModel: boolean
-  isReadOnly: boolean
-  required: boolean
-  textAlign?: string
-  responses?: string[]
+  display: string[];
+  code: string[];
+  identifier: string;
+  symbolizes?: string;
+  group: ObjectId;
+  company: ObjectId;
+  min: number;
+  max: number;
+  isActive: boolean;
+  modifiedAt: Date;
+  hideEmpty: boolean;
+  isSystemModel: boolean;
+  isReadOnly: boolean;
+  required: boolean;
+  textAlign?: string;
+  responses?: string[];
   command: {
-    commands: string[],
-    isCommanded: string,
-    values: { op: '=', target: string }[],
-  }
-  exec?: {
-    preload?: COTQuestionExec,
-    onDisplay?: COTQuestionExec,
-    filter?: COTQuestionExecFilter,
-    validate?: COTQuestionExec,
-    onChange?: COTQuestionExec,
-    presave?: COTQuestionExec,
-    postsave?: COTQuestionExec,
+    commands: string[];
+    isCommanded: string;
+    values: { op: '='; target: string }[];
   };
-  subtype?: string
-  skipCodeValidation?: boolean
+  exec?: {
+    preload?: COTQuestionExec;
+    onDisplay?: COTQuestionExec;
+    filter?: COTQuestionExecFilter;
+    validate?: COTQuestionExec;
+    onChange?: COTQuestionExec;
+    presave?: COTQuestionExec;
+    postsave?: COTQuestionExec;
+  };
+  subtype?: string;
+  skipCodeValidation?: boolean;
 }

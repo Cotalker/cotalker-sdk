@@ -1,53 +1,46 @@
-import { COTTask, COTTaskPatchData, COTTaskPostData, COTTaskQuery, FilteredTasks, multiTaskBody, queryTaskFilterOptions } from '@customTypes/COTTypes/COTTask'
+import { COTTask, COTTaskPatchData, COTTaskPostData, COTTaskQuery,
+  FilteredTasks, multiTaskBody, queryTaskFilterOptions } from '@customTypes/COTTypes/COTTask'
 import { ObjectId } from '@customTypes/custom'
-import HttpClient from '@utils/HttpClient'
-import { InternalAxiosRequestConfig } from 'axios'
+import { AxiosInstance } from 'axios'
 
-export default class COTTaskClient extends HttpClient{
-  private _cotalkerToken: string
-  public constructor(token: string, baseURL?:string) {
-    super(baseURL ?? 'https://staging.cotalker.com', false)
-    this._cotalkerToken = (token ?? process.env.COTALKER_TOKEN ?? '').replace(/^Bearer /g, '')
-    this._initializeRequestInterceptor()
-  }
+export default class COTTaskClient {
+  protected readonly _instance: AxiosInstance
 
-  private _initializeRequestInterceptor = () => {
-    this.instance.interceptors.request.use(
-      this._handleRequest,
-      this._handleError,
-    )
-  }
-
-  private _handleRequest = async (config: InternalAxiosRequestConfig) => {
-    if (!config.headers) return
-    config.headers['Authorization'] = `Bearer ${this._cotalkerToken}`
-    config.headers['Content-Type'] = 'application/json'
-    config.headers['admin'] = 'true'
-    return config
+  public constructor(instance: AxiosInstance) {
+    this._instance = instance
   }
 
   public async getTask<T extends COTTask>(taskId: ObjectId, taskGroupId: ObjectId): Promise<COTTask> {
-    return (await this.instance.get<T>(`/api/tasks/${taskGroupId}/task/${taskId}`))
+    const task = await (this._instance.get<T>(`/api/tasks/${taskGroupId}/task/${taskId}`))
+    return task
   }
 
   public async getTaskBySerial(taskSerial: number, taskGroupId: ObjectId): Promise<COTTask> {
-    return (await this.instance.get<COTTask>(`/api/tasks/${taskGroupId}/task/serial/${taskSerial}`))
+    const task = await (this._instance.get<COTTask>(`/api/tasks/${taskGroupId}/task/serial/${taskSerial}`))
+    return task
   }
 
   public async patchTask(taskId: ObjectId, taskGroupId: ObjectId, body: COTTaskPatchData): Promise<COTTask> {
-    return (await this.instance.patch<COTTask>(`/api/tasks/${taskGroupId}/task/${taskId}`, body))
+    const task = await (this._instance.patch<COTTask>(`/api/tasks/${taskGroupId}/task/${taskId}`, body))
+    return task
   }
 
   public async findTasks<T extends COTTask>(taskGroupId: ObjectId, query: COTTaskQuery): Promise<T[]> {
-    return (await this.instance.post<T[]>(`/api/tasks/${taskGroupId}/task/all`, query))
+    const task = await (this._instance.post<T[]>(`/api/tasks/${taskGroupId}/task/all`, query))
+    return task
   }
 
   public async postTask<T extends COTTask>(taskData: COTTaskPostData): Promise<T> {
-    return (await this.instance.post<{task: T}>(`/api/tasks/${taskData.taskGroup}/task/create?requiredSurvey=false`, taskData)).task
+    const { task } = await this._instance.post<{ task: T }>(
+      `/api/tasks/${taskData.taskGroup}/task/create?requiredSurvey=false`,
+      taskData,
+    )
+    return task
   }
 
   public async patchMultiTasks(taskGroupId: ObjectId, body: multiTaskBody): Promise<COTTask[]> {
-    return (await this.instance.post<COTTask[]>(`/api/tasks/${taskGroupId}/task/multi`, body))
+    const task = await (this._instance.post<COTTask[]>(`/api/tasks/${taskGroupId}/task/multi`, body))
+    return task
   }
 
   public async queryTasksFilter(taskGroupId: string, filterId: string, options?: queryTaskFilterOptions): Promise<FilteredTasks[]> {
@@ -57,6 +50,7 @@ export default class COTTaskClient extends HttpClient{
       if (options.limitBy) qParams.limitBy = options.limitBy
     }
     const queryParams = (options && new URLSearchParams(qParams).toString()) || {}
-    return (await this.instance.get<FilteredTasks[]>(`/api/tasks/${taskGroupId}/task?filter=${filterId}&${queryParams}`))
+    const task = await (this._instance.get<FilteredTasks[]>(`/api/tasks/${taskGroupId}/task?filter=${filterId}&${queryParams}`))
+    return task
   }
-} 
+}

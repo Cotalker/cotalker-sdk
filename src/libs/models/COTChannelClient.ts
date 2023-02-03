@@ -1,31 +1,14 @@
-import HttpClient from '@utils/HttpClient'
-import { InternalAxiosRequestConfig } from 'axios'
+import { AxiosInstance } from 'axios'
 import { COTChannel } from '@customTypes/COTTypes/COTChannel'
 
-export default class COTChannelClient extends HttpClient{
-  private _cotalkerToken: string
-  public constructor(token: string, baseURL?:string) {
-    super(baseURL ?? 'https://staging.cotalker.com', false)
-    this._cotalkerToken = (token ?? process.env.COTALKER_TOKEN ?? '').replace(/^Bearer /g, '')
-    this._initializeRequestInterceptor()
-  }
+export default class COTChannelClient {
+  protected _instance: AxiosInstance
 
-  private _initializeRequestInterceptor = () => {
-    this.instance.interceptors.request.use(
-      this._handleRequest,
-      this._handleError,
-    )
-  }
-
-  private _handleRequest = async (config: InternalAxiosRequestConfig) => {
-    if (!config.headers) return
-    config.headers['Authorization'] = `Bearer ${this._cotalkerToken}`
-    config.headers['Content-Type'] = 'application/json'
-    config.headers['admin'] = 'true'
-    return config
+  public constructor(instance: AxiosInstance) {
+    this._instance = instance
   }
 
   public async createChannel<T extends COTChannel>(body: COTChannel): Promise<T> {
-    return (await this.instance.post<{data:T}>('/api/v2/channels', body)).data
+    return (await this._instance.post<{ data: T }>('/api/v2/channels', body)).data
   }
-} 
+}

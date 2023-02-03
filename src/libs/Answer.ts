@@ -1,12 +1,14 @@
-import { CotalkerAPI } from './CotalkerAPI'
 import { ObjectId } from '@customTypes/custom'
 import { COTAnswer, COTAnswerData } from '@customTypes/COTTypes/COTAnswer'
 import { COTProperty } from '@customTypes/COTTypes/COTProperty'
 import { COTUser } from '@customTypes/COTTypes/COTUser'
+import { CotalkerAPI } from './CotalkerAPI'
 
 export class Answer {
   public createdAt: Date
+
   public user: ObjectId
+
   private constructor(
     private API: CotalkerAPI,
     private cotAnswer: COTAnswer,
@@ -14,24 +16,27 @@ export class Answer {
     this.user = this.cotAnswer.user
     this.createdAt = new Date(this.cotAnswer.createdAt)
   }
-  static async fromId(api: CotalkerAPI , answerId: ObjectId): Promise<Answer> {
+
+  static async fromId(api: CotalkerAPI, answerId: ObjectId): Promise<Answer> {
     return new Answer(api, await api.getAnswer(answerId))
   }
 
   getString(identifier: string): string {
     return this.cotAnswer.data.find(d => d.identifier === identifier)?.process[0] ?? ''
   }
+
   getNumber(identifier: string): number {
     return parseFloat(this.cotAnswer.data.find(d => d.identifier === identifier)?.process[0] ?? '') ?? NaN
   }
+
   getProcess(identifier: string): string[] {
     return this.cotAnswer.data.find(d => d.identifier === identifier)?.process ?? []
   }
 
-  getPropertyResponse<T extends COTProperty>(identifier: string): T|null {
+  getPropertyResponse<T extends COTProperty>(identifier: string): T | null {
     try {
       const resp = this.cotAnswer.data.find(d => d.identifier === identifier)?.responses[0]
-      return  (resp && JSON.parse(resp)) || null
+      return (resp && JSON.parse(resp)) || null
     } catch (error) {
       console.error(error)
       return null
@@ -41,6 +46,7 @@ export class Answer {
   getIdentifier(identifier: string): COTAnswerData | undefined {
     return this.cotAnswer.data.find(d => d.identifier === identifier)
   }
+
   async getSubAnswers(identifier: string, waitTime?: number): Promise<Answer[]> {
     const answerData = this.getIdentifier(identifier)
     if (!answerData) return []
@@ -53,11 +59,13 @@ export class Answer {
     const subAnswers = []
     for (const uuid of uuids) {
       await new Promise(resolve => setTimeout(resolve, wait))
-      subAnswers.push(await Answer.fromId(this.API,uuid))
+      subAnswers.push(await Answer.fromId(this.API, uuid))
     }
     return subAnswers
   }
+
   async getUser(): Promise<COTUser> {
-    return await this.API.getUser(this.user)
+    const user = await this.API.getUser(this.user)
+    return user
   }
 }

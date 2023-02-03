@@ -1,28 +1,30 @@
 {
+  "root": true,
   "env": {
       "browser": true,
       "es2021": true,
       "node": true
   },
   "extends": [
-      "eslint:recommended",
-      "plugin:@typescript-eslint/recommended"
+      "airbnb",
+      "airbnb-typescript/base"
   ],
   "overrides": [
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-      "ecmaVersion": "latest",
-      "sourceType": "module"
+    "project": "cotalker-sdk/tsconfig.json"
   },
   "plugins": [
-      "@typescript-eslint"
+      "@typescript-eslint",
+      "jsdoc"
   ],
   "rules": {
     "indent": ["error", 2, { "SwitchCase": 1, "ignoredNodes": ["PropertyDefinition"] }],
+    "no-promise-executor-return": ["off"],
+    "no-restricted-syntax":"off",
     "linebreak-style": ["error","unix"],
     "quotes": ["error","single"],
-    "semi": ["error","never"],
     "eol-last": ["error","always"],
     "@typescript-eslint/no-explicit-any": ["off"],
     "@typescript-eslint/consistent-type-definitions": ["error"],
@@ -69,7 +71,7 @@
     "@typescript-eslint/prefer-function-type": ["error"],
     "@typescript-eslint/quotes": ["error", "single"],
     "@typescript-eslint/require-await": ["error"],
-    "@typescript-eslint/semi": ["error","always"],
+    "@typescript-eslint/semi": ["error", "never"],
     "@typescript-eslint/type-annotation-spacing": ["error"],
     "@typescript-eslint/unified-signatures": ["error"],
     "arrow-body-style": ["error"],
