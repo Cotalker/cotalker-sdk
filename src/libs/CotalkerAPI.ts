@@ -1,23 +1,23 @@
 /* eslint-disable no-param-reassign */
-import COTFileClient from '@models/COTFileClient'
-import COTTaskClient from '@models/COTTaskClient'
-import COTUserClient from '@models/COTUserClient'
-import COTSurveyClient from '@models/COTSurveyClient'
-import COTAnswerClient from '@models/COTAnswerClient'
-import COTMessageClient from '@models/COTMessageClient'
-import COTChannelClient from '@models/COTChannelClient'
-import COTSMStateClient from '@models/COTSMStateClient'
-import COTPropertyClient from '@models/COTPropertyClient'
-import COTSchedulerClient from '@models/COTSchedulerClient'
-import COTPropertyTypeClient from '@models/COTPropertyTypeClient'
-import { ObjectId } from '@customTypes/custom'
-import { COTUser } from '@customTypes/COTTypes/COTUser'
-import { ScheduleBody } from '@customTypes/COTTypes/scheduler'
-import { SendMsgBody } from '@customTypes/COTTypes/COTMessage'
-import { COTChannel } from '@customTypes/COTTypes/COTChannel'
 import { isActiveOptions, JSONPatchBody } from '@customTypes/COTTypes/APIGenerics'
+import { COTChannel } from '@customTypes/COTTypes/COTChannel'
+import { SendMsgBody } from '@customTypes/COTTypes/COTMessage'
 import { COTProperty, searchPropertyQueryOptions } from '@customTypes/COTTypes/COTProperty'
 import { COTTaskPatchData, COTTaskPostData, COTTaskQuery, multiTaskBody, queryTaskFilterOptions } from '@customTypes/COTTypes/COTTask'
+import { COTUser } from '@customTypes/COTTypes/COTUser'
+import { ScheduleBody } from '@customTypes/COTTypes/scheduler'
+import { ObjectId } from '@customTypes/custom'
+import COTAnswerClient from '@models/COTAnswerClient'
+import COTChannelClient from '@models/COTChannelClient'
+import COTFileClient from '@models/COTFileClient'
+import COTMessageClient from '@models/COTMessageClient'
+import COTPropertyClient from '@models/COTPropertyClient'
+import COTPropertyTypeClient from '@models/COTPropertyTypeClient'
+import COTSchedulerClient from '@models/COTSchedulerClient'
+import COTSMStateClient from '@models/COTSMStateClient'
+import COTSurveyClient from '@models/COTSurveyClient'
+import COTTaskClient from '@models/COTTaskClient'
+import COTUserClient from '@models/COTUserClient'
 import HttpClient from '@utils/HttpClient'
 import { InternalAxiosRequestConfig } from 'axios'
 
@@ -144,12 +144,12 @@ export class CotalkerAPI extends HttpClient {
 
   /* COTUser */
 
-  static async getUserMe(token: string): Promise<COTUser> {
-    const _token = token.replace(/^Bearer /, '')
+  static async getUserMe(_token: string): Promise<COTUser> {
+    const token = _token.replace(/^Bearer /, '')
     const me: COTUser = await (super.get(
       `${process.env.BASE_URL}/api/users/me`,
       { 'Content-Type': 'application/json',
-        Authorization: `Bearer ${_token}` },
+        Authorization: `Bearer ${token}` },
     ))
     return me
   }

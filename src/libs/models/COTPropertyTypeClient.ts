@@ -1,8 +1,8 @@
-import { URLSearchParams } from 'url'
-import { ObjectId } from '@customTypes/custom'
-import { COTPropertyType } from '@customTypes/COTTypes/COTPropertyType'
 import { COTProperty, searchPropertyQueryOptions } from '@customTypes/COTTypes/COTProperty'
+import { COTPropertyType } from '@customTypes/COTTypes/COTPropertyType'
+import { ObjectId } from '@customTypes/custom'
 import { AxiosInstance } from 'axios'
+import { URLSearchParams } from 'url'
 
 export default class COTPropertyTypeClient {
   protected readonly _instance: AxiosInstance

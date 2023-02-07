@@ -1,5 +1,5 @@
-import { AxiosInstance } from 'axios'
 import { SendMsgBody } from '@customTypes/COTTypes/COTMessage'
+import { AxiosInstance } from 'axios'
 
 export default class COTMessageClient {
   protected readonly _instance: AxiosInstance

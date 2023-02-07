@@ -1,7 +1,8 @@
-import { ObjectId } from '@customTypes/custom'
 import { COTAnswer, COTAnswerData } from '@customTypes/COTTypes/COTAnswer'
 import { COTProperty } from '@customTypes/COTTypes/COTProperty'
 import { COTUser } from '@customTypes/COTTypes/COTUser'
+import { ObjectId } from '@customTypes/custom'
+
 import { CotalkerAPI } from './CotalkerAPI'
 
 export class Answer {
@@ -58,6 +59,7 @@ export class Answer {
     const wait = ((uuids.length > 1) && Math.min(waitTime ?? 100, 100)) || 0
     const subAnswers = []
     for (const uuid of uuids) {
+      // eslint-disable-next-line @typescript-eslint/no-loop-func
       await new Promise(resolve => setTimeout(resolve, wait))
       subAnswers.push(await Answer.fromId(this.API, uuid))
     }

@@ -1,5 +1,5 @@
-import { AxiosInstance } from 'axios'
 import { COTChannel } from '@customTypes/COTTypes/COTChannel'
+import { AxiosInstance } from 'axios'
 
 export default class COTChannelClient {
   protected _instance: AxiosInstance
