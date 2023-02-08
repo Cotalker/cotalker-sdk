@@ -1,4 +1,4 @@
-import { COTProperty, searchPropertyQueryOptions } from '@customTypes/COTTypes/COTProperty'
+import { COTProperty, SearchPropertyQueryOptions } from '@customTypes/COTTypes/COTProperty'
 import { COTPropertyType } from '@customTypes/COTTypes/COTPropertyType'
 import { ObjectId } from '@customTypes/custom'
 import { AxiosInstance } from 'axios'
@@ -39,7 +39,7 @@ export default class COTPropertyTypeClient {
   public async searchProperty<T extends COTProperty>(
     search: string,
     propertyType?: string,
-    options?: searchPropertyQueryOptions,
+    options?: SearchPropertyQueryOptions,
   ): Promise<T> {
     const query: Record<string, string | string[]> = { search, ...(options ?? {}) }
     if (propertyType) query.propertyTypes = propertyType

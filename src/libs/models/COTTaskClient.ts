@@ -1,5 +1,5 @@
 import { COTTask, COTTaskPatchData, COTTaskPostData, COTTaskQuery,
-  FilteredTasks, multiTaskBody, queryTaskFilterOptions } from '@customTypes/COTTypes/COTTask'
+  FilteredTasks, MultiTaskBody, QueryTaskFilterOptions } from '@customTypes/COTTypes/COTTask'
 import { ObjectId } from '@customTypes/custom'
 import { AxiosInstance } from 'axios'
 
@@ -38,13 +38,13 @@ export default class COTTaskClient {
     return task
   }
 
-  public async patchMultiTasks(taskGroupId: ObjectId, body: multiTaskBody): Promise<COTTask[]> {
+  public async patchMultiTasks(taskGroupId: ObjectId, body: MultiTaskBody): Promise<COTTask[]> {
     const task = await (this._instance.post<COTTask[]>(`/api/tasks/${taskGroupId}/task/multi`, body))
     return task
   }
 
-  public async queryTasksFilter(taskGroupId: string, filterId: string, options?: queryTaskFilterOptions): Promise<FilteredTasks[]> {
-    const qParams: Partial<Record<keyof queryTaskFilterOptions, string>> = {}
+  public async queryTasksFilter(taskGroupId: string, filterId: string, options?: QueryTaskFilterOptions): Promise<FilteredTasks[]> {
+    const qParams: Partial<Record<keyof QueryTaskFilterOptions, string>> = {}
     if (options) {
       if (options.limit) qParams.limit = String(options.limit)
       if (options.limitBy) qParams.limitBy = options.limitBy

@@ -1,6 +1,6 @@
-import { AxiosInstance } from 'axios'
-import { ObjectId } from '@customTypes/custom'
 import { COTAnswer } from '@customTypes/COTTypes/COTAnswer'
+import { ObjectId } from '@customTypes/custom'
+import { AxiosInstance } from 'axios'
 
 export default class COTAnswerClient {
   protected readonly _instance: AxiosInstance

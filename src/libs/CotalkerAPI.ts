@@ -1,9 +1,9 @@
 /* eslint-disable no-param-reassign */
-import { isActiveOptions, JSONPatchBody } from '@customTypes/COTTypes/APIGenerics'
+import { IsActiveOptions, JSONPatchBody } from '@customTypes/COTTypes/APIGenerics'
 import { COTChannel } from '@customTypes/COTTypes/COTChannel'
 import { SendMsgBody } from '@customTypes/COTTypes/COTMessage'
-import { COTProperty, searchPropertyQueryOptions } from '@customTypes/COTTypes/COTProperty'
-import { COTTaskPatchData, COTTaskPostData, COTTaskQuery, multiTaskBody, queryTaskFilterOptions } from '@customTypes/COTTypes/COTTask'
+import { COTProperty, SearchPropertyQueryOptions } from '@customTypes/COTTypes/COTProperty'
+import { COTTaskPatchData, COTTaskPostData, COTTaskQuery, MultiTaskBody, QueryTaskFilterOptions } from '@customTypes/COTTypes/COTTask'
 import { COTUser } from '@customTypes/COTTypes/COTUser'
 import { ScheduleBody } from '@customTypes/COTTypes/scheduler'
 import { ObjectId } from '@customTypes/custom'
@@ -122,7 +122,7 @@ export class CotalkerAPI extends HttpClient {
     return task
   }
 
-  async patchMultiTasks(taskGroupId: ObjectId, body: multiTaskBody) {
+  async patchMultiTasks(taskGroupId: ObjectId, body: MultiTaskBody) {
     const task = await this._cottaskClient.patchMultiTasks(taskGroupId, body)
     return task
   }
@@ -132,7 +132,7 @@ export class CotalkerAPI extends HttpClient {
     return task
   }
 
-  async queryTasksFilter(taskGroupId: string, filterId: string, options?: queryTaskFilterOptions) {
+  async queryTasksFilter(taskGroupId: string, filterId: string, options?: QueryTaskFilterOptions) {
     const task = await this._cottaskClient.queryTasksFilter(taskGroupId, filterId, options)
     return task
   }
@@ -141,7 +141,7 @@ export class CotalkerAPI extends HttpClient {
     const task = await this._cottaskClient.postTask(taskData)
     return task
   }
-
+  
   /* COTUser */
 
   static async getUserMe(_token: string): Promise<COTUser> {
@@ -241,7 +241,7 @@ export class CotalkerAPI extends HttpClient {
     return property
   }
 
-  async getSubproperties(property: COTProperty | COTProperty, isActive?: isActiveOptions) {
+  async getSubproperties(property: COTProperty | COTProperty, isActive?: IsActiveOptions) {
     const subproperty = await this._cotpropertyClient.getSubproperties(property, isActive)
     return subproperty
   }
@@ -277,7 +277,7 @@ export class CotalkerAPI extends HttpClient {
     return property
   }
 
-  async searchProperty(search: string, propertyType?: string, options?: searchPropertyQueryOptions) {
+  async searchProperty(search: string, propertyType?: string, options?: SearchPropertyQueryOptions) {
     const property = await this._cotpropertyTypeClient.searchProperty(search, propertyType, options)
     return property
   }

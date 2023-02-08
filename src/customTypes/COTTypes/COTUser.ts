@@ -1,5 +1,7 @@
 import { ObjectId } from '@customTypes/custom'
 
+import { IsActiveOptions } from './APIGenerics'
+
 export declare interface COTUser {
   _id: ObjectId;
   accessRoles: ObjectId[];
@@ -93,9 +95,35 @@ interface Avatar {
   square: string;
 }
 
-export declare interface COTUserQuery {
-  isActive?: boolean;
-  jobTitle?: string;
+export declare type COTUserQuery = {
+  search?: string;
+  limit?:number;
+  page?:number;
+  count?:boolean;
+  orderBy?:string;
+  sortBy?: string;
+  isActive?: IsActiveOptions;
+  email?: string[] | string;
+  bot?: ObjectId;
+  id?: ObjectId;
+  relatedUser?: ObjectId;
+  property?: ObjectId;
+  accessRole?: ObjectId;
+  job?: string;
+  modified?: string; 
+  modified_gt?: string;
+  modified_gte?: string;
+  created?: string;
+  created_gt?: string;
+  creatd_gte?: string;
+  created_lt?: string;
+  created_lte?: string;
+  debug?: boolean;
+}
+
+export declare interface COTUserQueryResult {
+  count: number;
+  users: COTUser[];
 }
 
 export declare interface COTUserActivity {

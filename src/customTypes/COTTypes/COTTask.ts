@@ -103,28 +103,28 @@ export declare class COTTask {
 }
 
 export declare type COTTaskPostData = Pick<COTTask,
-  'taskGroup' | 'name' | 'userList' | 'assignee' | 'followers' | 'editors' |
-  'startDate' | 'endDate' |
-  'status1' | 'status2' | 'status3' | 'status4' | 'status5' | 'extensions'>
+'taskGroup' | 'name' | 'userList' | 'assignee' | 'followers' | 'editors' |
+'startDate' | 'endDate' |
+'status1' | 'status2' | 'status3' | 'status4' | 'status5' | 'extensions'>
 export declare type COTTaskPatchData = Partial<Omit<COTTaskPostData, 'taskGroup'>> & { isActive?: boolean; smState?: ObjectId }
 
-type singleOrMultiObjectId = ObjectId | { $in: ObjectId[] }
-type dateQuery = string | Partial<Record<'$gt' | '$gte' | '$lt' | '$lte', string | Date>>
+type SingleOrMultiObjectId = ObjectId | { $in: ObjectId[] }
+type DateQuery = string | Partial<Record<'$gt' | '$gte' | '$lt' | '$lte', string | Date>>
 export declare interface COTTaskQuery {
-  isActive?: boolean; _id?: singleOrMultiObjectId;
-  userList?: singleOrMultiObjectId;
-  channel?: singleOrMultiObjectId;
-  smState?: singleOrMultiObjectId;
-  status?: singleOrMultiObjectId;
-  status1?: singleOrMultiObjectId;
-  status2?: singleOrMultiObjectId;
-  status3?: singleOrMultiObjectId;
-  status4?: singleOrMultiObjectId;
-  status5?: singleOrMultiObjectId;
-  createdAt?: dateQuery; startDate?: dateQuery; endDate?: dateQuery;
+  isActive?: boolean; _id?: SingleOrMultiObjectId;
+  userList?: SingleOrMultiObjectId;
+  channel?: SingleOrMultiObjectId;
+  smState?: SingleOrMultiObjectId;
+  status?: SingleOrMultiObjectId;
+  status1?: SingleOrMultiObjectId;
+  status2?: SingleOrMultiObjectId;
+  status3?: SingleOrMultiObjectId;
+  status4?: SingleOrMultiObjectId;
+  status5?: SingleOrMultiObjectId;
+  createdAt?: DateQuery; startDate?: DateQuery; endDate?: DateQuery;
 }
 
-export declare interface queryTaskFilterOptions {
+export declare interface QueryTaskFilterOptions {
   limit?: number; limitBy?: 'all' | 'group';
 }
 
@@ -138,7 +138,7 @@ export declare interface FilteredTasks {
   tasks: COTTask[];
 }
 
-export interface multiTaskBody {
+export interface MultiTaskBody {
   cmd: {
     method: string;
     task: COTTask;
