@@ -178,10 +178,30 @@ export class CotalkerAPI extends HttpClient {
     const user = await this._cotuserClient.getUsersByEmail(email)
     return user
   }
+  
+  async getUserByEmail(email: string) {
+    const user = await this._cotuserClient.getUserByEmail(email)
+    return user
+  }
+
+  async getAllUsersByAccessRole(accessRole:string) {
+    const user = await this._cotuserClient.getAllUsersByAccessRole(accessRole)
+    return user
+  }
+  
+  public async getAllUsersByAccessRoleQuery(accessRole:string) {
+    const users = await this._cotuserClient.getAllUsersByAccessRoleQuery(accessRole)
+    return users
+  }
 
   async getUserActivity(id: ObjectId) {
     const user = await this._cotuserClient.getUserActivity(id)
     return user
+  }
+  
+  async getSubordinates(user: COTUser) {
+    const subordinate = await this._cotuserClient.getSubordiantes(user)
+    return subordinate
   }
 
   async jsonPatchUser(userId: ObjectId, body: JSONPatchBody) {
@@ -189,10 +209,6 @@ export class CotalkerAPI extends HttpClient {
     return user
   }
 
-  async getSubordinates(user: COTUser) {
-    const subordinate = await this._cotuserClient.getSubordiantes(user)
-    return subordinate
-  }
 
   /* COTSMStates */
   async getSmStates(taskGroup: ObjectId) {

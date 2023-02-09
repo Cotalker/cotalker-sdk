@@ -35,6 +35,11 @@ export default class COTUserClient {
     return this.getAllUsersByQuery({ accessRole })
   }
   
+  public async getAllUsersByAccessRoleQuery(accessRole:string):Promise<COTUser[]> {
+    const users = new ElementQuery({ accessRole }, 'users', this._instance)
+    return <Promise<COTUser[]>>users.getAllElementsByQuery()
+  }
+  
   public async getUsersByRelation(type: string, _id: ObjectId): Promise<COTUser[]> {
     return (await this._instance.get(`/api/v2/users/relations/${type}/${_id}?limit=100&isActive=true`))?.data?.users ?? ''
   }
@@ -82,8 +87,8 @@ export default class COTUserClient {
     const users: COTUser[] = []
     do {
       const response = this.getUserQuery(query)
-      users.push(...response[1])
-      count = response[0] 
+      users.push(...(await response).users)
+      count = (await response).count
       query.page += 1
     } while (users.length < count)
     return users

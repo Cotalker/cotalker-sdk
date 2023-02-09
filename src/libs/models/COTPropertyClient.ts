@@ -1,4 +1,4 @@
-import { isActiveOptions, JSONPatchBody } from '@customTypes/COTTypes/APIGenerics'
+import { IsActiveOptions, JSONPatchBody } from '@customTypes/COTTypes/APIGenerics'
 import { COTProperty } from '@customTypes/COTTypes/COTProperty'
 import { ObjectId } from '@customTypes/custom'
 import { AxiosInstance } from 'axios'
@@ -19,7 +19,7 @@ export default class COTPropertyClient {
     return (await this._instance.get(`/api/v2/properties/code/${code}`)).data
   }
 
-  public async getSubproperties<T extends COTProperty>(property: ObjectId | COTProperty, isActive?: isActiveOptions): Promise<T[]> {
+  public async getSubproperties<T extends COTProperty>(property: ObjectId | COTProperty, isActive?: IsActiveOptions): Promise<T[]> {
     if (typeof property === 'string') {
       return (await this._instance.get<{ data: { properties: T[] } }>(
         `/api/v2/properties/relations?property=${property}&relation=child&isActive=${isActive ?? 'all'}`,
