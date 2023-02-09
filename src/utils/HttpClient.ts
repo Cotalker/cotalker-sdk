@@ -1,6 +1,6 @@
+import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios'
 import * as http from 'http'
 import * as https from 'https'
-import axios, { AxiosInstance, AxiosResponse, AxiosError } from 'axios'
 
 declare module 'axios' {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
