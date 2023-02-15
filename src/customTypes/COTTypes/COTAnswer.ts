@@ -1,4 +1,5 @@
-import { ObjectId } from '@customTypes/custom'
+import { GenericQueryParams, ObjectId } from '@customTypes/custom'
+
 import { COTQuestionContentType } from './COTQuestion'
 
 export declare interface COTAnswerData {
@@ -32,3 +33,21 @@ export declare interface COTAnswer {
     }[];
   };
 }
+
+
+export type AnswersQueryParams = GenericQueryParams & {
+  extra?: string[];
+  user?: ObjectId;
+  survey?: ObjectId;
+  surveyIds?: ObjectId;
+  properties?: ObjectId;
+  answerUuids?: ObjectId;
+  fullMatchProperties?: boolean;
+  modifiedAtGte?: string;
+  modifiedAtLte?: string;
+  search?: string;
+  orderBy?:string;
+  sortBy?: string;
+  debug?: 'true'
+}
+

@@ -1,12 +1,16 @@
-import { COTSurvey } from '@customTypes/COTTypes/COTSurvey'
+import { COTSurvey, SurveysQueryParams } from '@customTypes/COTTypes/COTSurvey'
 import { ObjectId } from '@customTypes/custom'
+import { QueryHandler } from '@utils/QueryHandler'
 import { AxiosInstance } from 'axios'
 
 export default class COTSurveyClient {
   protected readonly _instance: AxiosInstance
 
+  private queryHandler
+
   public constructor(instance: AxiosInstance) {
     this._instance = instance
+    this.queryHandler = new QueryHandler('answers', this._instance)
   }
 
   public async getSurvey(surveyId: ObjectId): Promise<COTSurvey> {
@@ -14,6 +18,7 @@ export default class COTSurveyClient {
   }
 
   public async getSurveys(): Promise<COTSurvey[]> {
+    /*
     let count = 1
     let page = 1
     const surveys: COTSurvey[] = []
@@ -26,5 +31,15 @@ export default class COTSurveyClient {
       page += 1
     } while (surveys.length < count)
     return surveys
+    */
+    return this.queryHandler.getAllInQuery({})
+  }
+
+  public async getSurveyQuery(query:SurveysQueryParams): Promise<COTSurvey> {
+    return (await this.queryHandler.getQuery(query)).surveys[0]
+  }
+  
+  public async getAllSurveyInQuery(query:SurveysQueryParams): Promise<COTSurvey[]> {
+    return this.queryHandler.getAllInQuery(query)
   }
 }

@@ -1,6 +1,4 @@
-import { ObjectId } from '@customTypes/custom'
-
-import { IsActiveOptions } from './APIGenerics'
+import { DateQueryParams, GenericQueryParams, ObjectId } from '@customTypes/custom'
 
 export declare interface COTPropertyType {
   _id: ObjectId;
@@ -30,26 +28,12 @@ export declare interface COTPropertyTypeValidator {
   required: boolean;
 }
 
-export declare type COTPropertyTypeQuery = {
+export declare type PropertyTypesQueryParams = GenericQueryParams & DateQueryParams & {
   search?: string;
-  limit?:number;
-  page?:number;
-  count?:boolean;
   orderBy?:string;
   sortBy?: string;
   ids?: ObjectId[] | ObjectId;
   codes?: string[] | string;
-  isActive?: IsActiveOptions;
   viewPermissions?: boolean;
-  modified?: string; 
-  modified_gt?: string;
-  modified_gte?: string;
-  modified_lt?: string;
-  modified_lte?: string;
-  created?: string;
-  created_gt?: string;
-  creatd_gte?: string;
-  created_lt?: string;
-  created_lte?: string;
-  debug?: boolean;
+  debug?: string;
 }

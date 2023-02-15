@@ -1,18 +1,34 @@
 import { COTProperty, SearchPropertyQueryOptions } from '@customTypes/COTTypes/COTProperty'
-import { COTPropertyType } from '@customTypes/COTTypes/COTPropertyType'
+import { COTPropertyType, PropertyTypesQueryParams } from '@customTypes/COTTypes/COTPropertyType'
 import { ObjectId } from '@customTypes/custom'
+import { QueryHandler } from '@utils/QueryHandler'
 import { AxiosInstance } from 'axios'
 import { URLSearchParams } from 'url'
 
 export default class COTPropertyTypeClient {
   protected readonly _instance: AxiosInstance
 
+  private queryHandler
+
   public constructor(instance: AxiosInstance) {
     this._instance = instance
+    this.queryHandler = new QueryHandler('propertyTypes', this._instance)
+  }
+
+  public async getPropertyTypeQuery(query: PropertyTypesQueryParams): Promise<COTPropertyType> {
+    return (await this.queryHandler.getQuery(query)).propertyTypes[0]
+  }
+
+  public async getAllPropertyTypesInQuery(query:PropertyTypesQueryParams): Promise<COTPropertyType[]> {
+    return this.queryHandler.getAllInQuery(query)
   }
 
   public async getPropertyTypeByCode<T extends COTPropertyType>(code: string): Promise<T> {
     return (await this._instance.get(`/api/v2/propertyTypes/code/${code}`)).data
+  }
+
+  public async getPropertyTypeById<T extends COTPropertyType>(_id: string): Promise<T> {
+    return (await this._instance.get(`/api/v2/propertyTypes/${_id}`)).data
   }
 
   public async getAllFromPropertyType<T extends COTProperty>(propertyType: string): Promise <T[]> {

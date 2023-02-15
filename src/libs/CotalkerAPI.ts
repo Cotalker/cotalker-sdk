@@ -1,10 +1,12 @@
 /* eslint-disable no-param-reassign */
 import { IsActiveOptions, JSONPatchBody } from '@customTypes/COTTypes/APIGenerics'
+import { AnswersQueryParams } from '@customTypes/COTTypes/COTAnswer'
 import { COTChannel } from '@customTypes/COTTypes/COTChannel'
 import { SendMsgBody } from '@customTypes/COTTypes/COTMessage'
-import { COTProperty, SearchPropertyQueryOptions } from '@customTypes/COTTypes/COTProperty'
+import { COTProperty, PropertiesQueryParams, SearchPropertyQueryOptions } from '@customTypes/COTTypes/COTProperty'
+import { PropertyTypesQueryParams } from '@customTypes/COTTypes/COTPropertyType'
 import { COTTaskPatchData, COTTaskPostData, COTTaskQuery, MultiTaskBody, QueryTaskFilterOptions } from '@customTypes/COTTypes/COTTask'
-import { COTUser } from '@customTypes/COTTypes/COTUser'
+import { COTUser, UsersQueryParams } from '@customTypes/COTTypes/COTUser'
 import { ScheduleBody } from '@customTypes/COTTypes/scheduler'
 import { ObjectId } from '@customTypes/custom'
 import COTAnswerClient from '@models/COTAnswerClient'
@@ -173,6 +175,11 @@ export class CotalkerAPI extends HttpClient {
     const user = await this._cotuserClient.getUsersByJob(job)
     return user
   }
+  
+  async getUsersByJobTitle(jobTitle: string) {
+    const user = await this._cotuserClient.getUsersByJobTitle(jobTitle)
+    return user
+  }
 
   async getUsersByEmail(email: string) {
     const user = await this._cotuserClient.getUsersByEmail(email)
@@ -182,16 +189,6 @@ export class CotalkerAPI extends HttpClient {
   async getUserByEmail(email: string) {
     const user = await this._cotuserClient.getUserByEmail(email)
     return user
-  }
-
-  async getAllUsersByAccessRole(accessRole:string) {
-    const user = await this._cotuserClient.getAllUsersByAccessRole(accessRole)
-    return user
-  }
-  
-  public async getAllUsersByAccessRoleQuery(accessRole:string) {
-    const users = await this._cotuserClient.getAllUsersByAccessRoleQuery(accessRole)
-    return users
   }
 
   async getUserActivity(id: ObjectId) {
@@ -277,7 +274,9 @@ export class CotalkerAPI extends HttpClient {
     return property
   }
 
+  
   /* COTPropertyType */
+  
   async getPropertyTypeByCode(code: string) {
     const property = await this._cotpropertyTypeClient.getPropertyTypeByCode(code)
     return property
@@ -296,5 +295,44 @@ export class CotalkerAPI extends HttpClient {
   async searchProperty(search: string, propertyType?: string, options?: SearchPropertyQueryOptions) {
     const property = await this._cotpropertyTypeClient.searchProperty(search, propertyType, options)
     return property
+  }
+
+  /* QUERIES */
+
+  //channels
+  //surveys
+  
+  //properties
+  async getPropertiesQuery(query: PropertiesQueryParams) {
+    const property = await this._cotpropertyClient.getPropertiesQuery(query)
+    return property
+  }
+  
+  //users
+  async getUserQuery(query: UsersQueryParams) {
+    const property = await this._cotuserClient.getUserQuery(query)
+    return property
+  }
+  
+  async getAllUsersInQuery(query: UsersQueryParams) {
+    const property = await this._cotuserClient.getAllUsersInQuery(query)
+    return property
+  }
+  
+  //propertyTypes
+  async getPropertyTypeQuery(query: PropertyTypesQueryParams) {
+    const property = await this._cotpropertyTypeClient.getPropertyTypeQuery(query)
+    return property
+  }
+  
+  async getAllPropertyTypesInQuery(query: PropertyTypesQueryParams) {
+    const property = await this._cotpropertyTypeClient.getAllPropertyTypesInQuery(query)
+    return property
+  }
+
+  //answers
+  async getAnswersQuery(query: AnswersQueryParams) {
+    const answers = await this._cotanswerClient.getAnswersQuery(query)
+    return answers
   }
 }

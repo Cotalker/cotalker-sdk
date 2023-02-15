@@ -1,14 +1,24 @@
 import { IsActiveOptions, JSONPatchBody } from '@customTypes/COTTypes/APIGenerics'
-import { COTProperty } from '@customTypes/COTTypes/COTProperty'
+import { COTProperty, PropertiesQueryParams } from '@customTypes/COTTypes/COTProperty'
 import { ObjectId } from '@customTypes/custom'
+import { QueryHandler } from '@utils/QueryHandler'
 import { AxiosInstance } from 'axios'
+//import * as querystring from 'querystring'
 import { URLSearchParams } from 'url'
 
 export default class COTPropertyClient {
   protected readonly _instance: AxiosInstance
 
+  private queryHandler
+
   public constructor(instance: AxiosInstance) {
     this._instance = instance
+    this.queryHandler = new QueryHandler('properties', this._instance)
+
+  }
+
+  public async getPropertiesQuery(query: PropertiesQueryParams): Promise<unknown[]> {
+    return (await this.queryHandler.getQuery(query)).properties[0]
   }
 
   public async getProperty<T extends COTProperty>(_id: ObjectId): Promise<T> {

@@ -1,4 +1,4 @@
-import { ObjectId } from '@customTypes/custom'
+import { DateQueryParams, GenericQueryParams, ObjectId } from '@customTypes/custom'
 
 export declare type COTQuestionContentType =
 'application/vnd.cotalker.survey+text' |
@@ -61,4 +61,11 @@ export declare interface COTQuestion {
   };
   subtype?: string;
   skipCodeValidation?: boolean;
+}
+
+export type QuestionsQueryParams = GenericQueryParams &
+DateQueryParams &  {
+  ids?: ObjectId;
+  _id?: ObjectId;
+  debug?: 'true'
 }

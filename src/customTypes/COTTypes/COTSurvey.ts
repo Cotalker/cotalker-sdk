@@ -1,9 +1,9 @@
-import { ObjectId } from '@customTypes/custom'
+import { GenericQueryParams, ObjectId } from '@customTypes/custom'
 
 export declare interface COTSurvey {
   chat: QuestionChat[];
   _id: ObjectId;
-  code: String;
+  code: string;
 }
 
 export declare interface QuestionChat {
@@ -12,8 +12,15 @@ export declare interface QuestionChat {
 }
 
 export declare interface Question {
-  identifier: String;
-  display: String[];
-  contentType: String;
-  code: String;
+  identifier: string;
+  display: string[];
+  contentType: string;
+  code: string;
+}
+
+export type SurveysQueryParams = GenericQueryParams & {
+  search?: string;
+  answer?: string[];
+  select?: string[];
+  debug?: string;
 }
