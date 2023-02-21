@@ -20,7 +20,7 @@ export declare interface Question {
 
 export type SurveysQueryParams = GenericQueryParams & {
   search?: string;
-  answer?: string[];
-  select?: string[];
+  answer?: string | string[];
+  select?: string | string[];
   debug?: string;
 }

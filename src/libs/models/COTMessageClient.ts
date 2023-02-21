@@ -1,4 +1,4 @@
-import { EditMsgBody, RmMsgBody, SendEnrichedMsgBody, SendMsgBody } from '@customTypes/COTTypes/COTMessage'
+import { EditMsgBody, SendEnrichedMsgBody, SendMsgBody } from '@customTypes/COTTypes/COTMessage'
 import { ObjectId } from '@customTypes/custom'
 import { AxiosInstance } from 'axios'
 
@@ -14,10 +14,10 @@ export default class COTMessageClient {
   }
   
   async editMessage<T>(_messageId: ObjectId, body: EditMsgBody): Promise<T> {
-    return (await this._instance.patch<{ data:T }>('/api/v1/messages/${_messageId}', body)).data
+    return (await this._instance.patch<{ data:T }>(`/api/v1/messages/${_messageId}`, body)).data
   }
   
-  async removeMessage<T>(_messageId: ObjectId, body: RmMsgBody): Promise<T> {
-    return (await this._instance.patch<{ data:T }>('/api/v1/messages/${_messageId}/remove', body)).data
+  async removeMessage<T>(_messageId: ObjectId): Promise<T> {
+    return (await this._instance.patch<{ data:T }>(`/api/v1/messages/${_messageId}/remove`)).data
   }
 } 

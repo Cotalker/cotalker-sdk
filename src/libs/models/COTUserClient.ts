@@ -5,6 +5,9 @@ import { QueryHandler } from '@utils/QueryHandler'
 import { AxiosInstance } from 'axios'
 import * as querystring from 'querystring'
 
+export type AllowedRelation = 'boss' | 'peers' | 'subordinate' | 'property' | 'accessrole' | 'relateduser'
+
+
 export default class COTUserClient {
   protected readonly _instance: AxiosInstance
 
@@ -17,7 +20,11 @@ export default class COTUserClient {
   }
 
   public async getUserQuery(query:UsersQueryParams): Promise<COTUser> {
-    return (await this.queryHandler.getQuery(query)).users[0]
+    return this.getUsersQuery(query)[0]
+  }
+  
+  public async getUsersQuery(query:UsersQueryParams): Promise<COTUser[]> {
+    return (await this.queryHandler.getQuery(query)).users
   }
   
   public async getAllUsersInQuery(query:UsersQueryParams): Promise<COTUser[]> {
@@ -28,31 +35,31 @@ export default class COTUserClient {
     return (await this._instance.get(`/api/v2/users/${_id}`)).data
   }
   
-  public async getUsersByAccessRole(accessRole: string): Promise<COTUser[]> {
+  public async getUsersByAccessRole(accessRole: ObjectId): Promise<COTUser[]> {
     return this.getAllUsersInQuery({ accessRole })
+  }
+  
+  public async getUsersByJob(job: ObjectId): Promise<COTUser[]> {
+    return this.getAllUsersInQuery({ job })
+  }
+  
+  public async getUserByEmail(email: string): Promise<COTUser> {
+    return (this.getUserQuery({ email }))
+  }
+  
+  public async getUsersByEmail(email: string[] | string ): Promise<COTUser[]> {
+    return this.getAllUsersInQuery({ email })
   }
   
   public async getUsersByRole(role: string): Promise<COTUser[]> {
     return this.getAllUsersInQuery({ role })
   }
   
-  public async getUsersByEmail(email: string): Promise<COTUser[]> {
-    return this.getAllUsersInQuery({ email })
-  }
-  
-  public async getUserByEmail(email: string): Promise<COTUser> {
-    return (await this.getUserQuery({ email }))[0]
-  }
-  
-  public async getUsersByJob(job: string): Promise<COTUser[]> {
-    return this.getAllUsersInQuery({ job })
-  }
-  
   public async getUsersByJobTitle(jobTitle: string): Promise<COTUser[]> {
     return this.getAllUsersInQuery({ jobTitle })
   }
   
-  public async getUsersByRelation(type: string, _id: ObjectId): Promise<COTUser[]> {
+  public async getUsersByRelation(type: AllowedRelation, _id: ObjectId): Promise<COTUser[]> {
     return (await this._instance.get(`/api/v2/users/relations/${type}/${_id}?limit=100&isActive=true`))?.data?.users ?? ''
   }
 

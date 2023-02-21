@@ -1,10 +1,12 @@
 /* eslint-disable no-param-reassign */
 import { IsActiveOptions, JSONPatchBody } from '@customTypes/COTTypes/APIGenerics'
+import { AccessRolesQueryParams } from '@customTypes/COTTypes/COTAccessRole'
 import { AnswersQueryParams } from '@customTypes/COTTypes/COTAnswer'
 import { COTChannel } from '@customTypes/COTTypes/COTChannel'
-import { SendMsgBody } from '@customTypes/COTTypes/COTMessage'
+import { EditMsgBody, SendMsgBody } from '@customTypes/COTTypes/COTMessage'
 import { COTProperty, PropertiesQueryParams, SearchPropertyQueryOptions } from '@customTypes/COTTypes/COTProperty'
 import { PropertyTypesQueryParams } from '@customTypes/COTTypes/COTPropertyType'
+import { SurveysQueryParams } from '@customTypes/COTTypes/COTSurvey'
 import { COTTaskPatchData, COTTaskPostData, COTTaskQuery, MultiTaskBody, QueryTaskFilterOptions } from '@customTypes/COTTypes/COTTask'
 import { COTUser, UsersQueryParams } from '@customTypes/COTTypes/COTUser'
 import { ScheduleBody } from '@customTypes/COTTypes/scheduler'
@@ -19,9 +21,11 @@ import COTSchedulerClient from '@models/COTSchedulerClient'
 import COTSMStateClient from '@models/COTSMStateClient'
 import COTSurveyClient from '@models/COTSurveyClient'
 import COTTaskClient from '@models/COTTaskClient'
-import COTUserClient from '@models/COTUserClient'
+import COTUserClient, { AllowedRelation } from '@models/COTUserClient'
 import HttpClient from '@utils/HttpClient'
 import { InternalAxiosRequestConfig } from 'axios'
+
+import COTAccessRolesClient from './models/COTAccessRolesClient'
 
 export class CotalkerAPI extends HttpClient {
   private _cotfileClient: COTFileClient
@@ -39,11 +43,14 @@ export class CotalkerAPI extends HttpClient {
   private _cotchannelClient: COTChannelClient
 
   private _cotsmStateClient: COTSMStateClient
-
+ 
+  
   private _cotpropertyClient: COTPropertyClient
-
+  
   private _cotschedulerClient: COTSchedulerClient
 
+  private _cotaccessRolesClient: COTAccessRolesClient
+  
   private _cotpropertyTypeClient: COTPropertyTypeClient
 
   private _cotalkerToken: string
@@ -62,6 +69,7 @@ export class CotalkerAPI extends HttpClient {
     this._cotsmStateClient = new COTSMStateClient(this.instance)
     this._cotpropertyClient = new COTPropertyClient(this.instance)
     this._cotschedulerClient = new COTSchedulerClient(this.instance)
+    this._cotaccessRolesClient = new COTAccessRolesClient(this.instance)
     this._cotpropertyTypeClient = new COTPropertyTypeClient(this.instance)
   }
 
@@ -106,6 +114,12 @@ export class CotalkerAPI extends HttpClient {
   async getAnswer(answerId: ObjectId) {
     const answer = await this._cotanswerClient.getAnswer(answerId)
     return answer
+  }
+  
+  /* COTAccessRole */
+  async searchAccessRole(search: string) {
+    const accessRole = await this._cotaccessRolesClient.searchAccessRolesByName(search)
+    return accessRole
   }
 
   /* COTTask */
@@ -161,27 +175,22 @@ export class CotalkerAPI extends HttpClient {
     return user
   }
 
-  async getUsersByAccessRole(role: string) {
-    const user = await this._cotuserClient.getUsersByAccessRole(role)
+  async getUsersByAccessRole(accessRole: ObjectId) {
+    const user = await this._cotuserClient.getUsersByAccessRole(accessRole)
     return user
   }
 
-  async getUsersByRelation(type: string, id: ObjectId) {
+  async getUsersByRelation(type: AllowedRelation, id: ObjectId) {
     const user = await this._cotuserClient.getUsersByRelation(type, id)
     return user
   }
 
-  async getUsersByJob(job: string) {
+  async getUsersByJob(job: ObjectId) {
     const user = await this._cotuserClient.getUsersByJob(job)
     return user
   }
-  
-  async getUsersByJobTitle(jobTitle: string) {
-    const user = await this._cotuserClient.getUsersByJobTitle(jobTitle)
-    return user
-  }
 
-  async getUsersByEmail(email: string) {
+  async getUsersByEmail(email: string[] | string) {
     const user = await this._cotuserClient.getUsersByEmail(email)
     return user
   }
@@ -231,6 +240,16 @@ export class CotalkerAPI extends HttpClient {
     const message = await this._cotmessageClient.sendMessage(body)
     return message
   }
+  
+  async removeMessage(_messageId: ObjectId) {
+    const message = await this._cotmessageClient.removeMessage(_messageId)
+    return message
+  }
+  
+  async editMessage(_messageId: ObjectId, body: EditMsgBody) {
+    const message = await this._cotmessageClient.editMessage(_messageId, body)
+    return message
+  }
 
   /* COTSurvey */
   async getSurvey(surveyId: ObjectId) {
@@ -240,6 +259,21 @@ export class CotalkerAPI extends HttpClient {
 
   async getSurveys() {
     const survey = await this._cotsurveyClient.getSurveys()
+    return survey
+  }
+
+  async getSurveysCodes() {
+    const survey = await this._cotsurveyClient.getSurveysCodes()
+    return survey
+  }
+
+  async getSurveysByAnswer(answerUuid: string | string[]) {
+    const survey = await this._cotsurveyClient.getSurveysByAnswer(answerUuid)
+    return survey
+  }
+
+  async getAllSurveysInQuery(query: SurveysQueryParams) {
+    const survey = await this._cotsurveyClient.getAllSurveysInQuery(query)
     return survey
   }
 
@@ -314,6 +348,11 @@ export class CotalkerAPI extends HttpClient {
     return property
   }
   
+  async getUsersQuery(query: UsersQueryParams) {
+    const property = await this._cotuserClient.getUsersQuery(query)
+    return property
+  }
+  
   async getAllUsersInQuery(query: UsersQueryParams) {
     const property = await this._cotuserClient.getAllUsersInQuery(query)
     return property
@@ -334,5 +373,17 @@ export class CotalkerAPI extends HttpClient {
   async getAnswersQuery(query: AnswersQueryParams) {
     const answers = await this._cotanswerClient.getAnswersQuery(query)
     return answers
+  }
+
+  //accessRoles
+  
+  async getAccessRoleQuery(query:AccessRolesQueryParams) {
+    const accessRoles = await this._cotaccessRolesClient.getAccessRoleQuery(query)
+    return accessRoles
+  }
+
+  async getAllAccessRolesInQuery(query:AccessRolesQueryParams) {
+    const accessRoles = await this._cotaccessRolesClient.getAllAccessRolesInQuery(query)
+    return accessRoles
   }
 }

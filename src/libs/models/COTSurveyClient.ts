@@ -10,7 +10,7 @@ export default class COTSurveyClient {
 
   public constructor(instance: AxiosInstance) {
     this._instance = instance
-    this.queryHandler = new QueryHandler('answers', this._instance)
+    this.queryHandler = new QueryHandler('surveys', this._instance)
   }
 
   public async getSurvey(surveyId: ObjectId): Promise<COTSurvey> {
@@ -18,20 +18,6 @@ export default class COTSurveyClient {
   }
 
   public async getSurveys(): Promise<COTSurvey[]> {
-    /*
-    let count = 1
-    let page = 1
-    const surveys: COTSurvey[] = []
-    do {
-      const response = (await this._instance.get<{ data: { count: number; surveys: COTSurvey[] } }>(
-        `/api/v2/surveys?count=true&limit=100&page=${page}&isActive=true`,
-      ))
-      surveys.push(...response.data.surveys)
-      count = response.data.count
-      page += 1
-    } while (surveys.length < count)
-    return surveys
-    */
     return this.queryHandler.getAllInQuery({})
   }
 
@@ -39,7 +25,15 @@ export default class COTSurveyClient {
     return (await this.queryHandler.getQuery(query)).surveys[0]
   }
   
-  public async getAllSurveyInQuery(query:SurveysQueryParams): Promise<COTSurvey[]> {
+  public async getAllSurveysInQuery(query:SurveysQueryParams): Promise<COTSurvey[]> {
     return this.queryHandler.getAllInQuery(query)
+  }
+  
+  public async getSurveysCodes(): Promise<COTSurvey[]> {
+    return this.queryHandler.getAllInQuery({ select: 'code' })
+  }
+  
+  public async getSurveysByAnswer(answerUuid: string | string[]): Promise<COTSurvey[]> {
+    return this.queryHandler.getAllInQuery({ answer: answerUuid })
   }
 }

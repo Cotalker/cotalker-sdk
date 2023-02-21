@@ -11,17 +11,13 @@ export type SendMsgBody = {
 export type EditMsgBody = {
   channel: ObjectId,
   content: string,
-  isSaved: 16,
-} 
-
-export type RmMsgBody = {
-  isHidden: true
+  isSaved: 2,
 } 
 
 export interface SendEnrichedMsgBody {
   channel: ObjectId;
   contentType: 'text/enriched';
-  isSaved: 16;
+  isSaved: 2;
   sentBy: ObjectId;
   contentParts?: COTMessageContentPart[];
 }
