@@ -1,6 +1,7 @@
-import { AnswersQueryParams, COTAnswer } from '@customTypes/COTTypes/COTAnswer'
+import { AnswersQueryParams, answersQueryParams, COTAnswer } from '@customTypes/COTTypes/COTAnswer'
 import { ObjectId } from '@customTypes/custom'
 import { QueryHandler } from '@utils/QueryHandler'
+import { queryValidator } from '@utils/QueryValidator'
 import { AxiosInstance } from 'axios'
 
 export default class COTAnswerClient {
@@ -18,6 +19,7 @@ export default class COTAnswerClient {
   }
 
   public async getAnswersQuery(query:AnswersQueryParams): Promise<COTAnswer[]> {
+    queryValidator(answersQueryParams, query)
     return (await this.queryHandler.getQuery(query)).answers
   }
 

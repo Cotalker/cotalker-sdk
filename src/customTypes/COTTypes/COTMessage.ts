@@ -2,8 +2,9 @@ import { ObjectId } from '@customTypes/custom'
 
 export type SendMsgBody = {
   channel: ObjectId,
-  content: string,
-  contentType: 'text/system' | 'text/plain',
+  content?: string,
+  contentParts?: COTMessageContentPart[],
+  contentType: 'text/system' | 'text/plain' | 'text/enriched',
   isSaved: 2,
   sentBy: ObjectId
 } 
@@ -14,15 +15,15 @@ export type EditMsgBody = {
   isSaved: 2,
 } 
 
-export interface SendEnrichedMsgBody {
-  channel: ObjectId;
-  contentType: 'text/enriched';
-  isSaved: 2;
-  sentBy: ObjectId;
-  contentParts?: COTMessageContentPart[];
-}
+// export type SendEnrichedMsgBody = {
+//   channel: ObjectId;
+//   contentType: 'text/enriched';
+//   isSaved: 2;
+//   sentBy: ObjectId;
+//   contentParts?: COTMessageContentPart[];
+// }
 
-export interface COTMessageContentPart {
+export type COTMessageContentPart = {
   type: COTMessageContentPartType;
   content: string;
   payload:
@@ -41,7 +42,7 @@ export enum COTMessageContentPartType {
   User = 'user',
 }
 
-export interface COTMessageContentPartHoverPayload {
+export type COTMessageContentPartHoverPayload = {
   html?: string;
   markdown?: string;
   card?: {
@@ -51,23 +52,23 @@ export interface COTMessageContentPartHoverPayload {
 }
 
 
-export interface COTMessageContentPartLinkPayload {
+export type COTMessageContentPartLinkPayload = {
   url: string;
   ogMetadata: COTOpengraphMetadata;
 }
 
-export interface COTMessageContentPartTaskPayload {
+export type COTMessageContentPartTaskPayload = {
   company: string;
   task: string;
   taskGroup: string;
 }
 
-export interface COTMessageContentPartUserPayload {
+export type COTMessageContentPartUserPayload = {
   company: string;
   user: string;
 }
 
-export interface COTOpengraphMetadata {
+export type COTOpengraphMetadata = {
   title: string;
   url: string;
   image: string;
@@ -76,6 +77,6 @@ export interface COTOpengraphMetadata {
   video: string;
   audio: string;
   logo: string;
-  date: Date;
+  date: string;
   author: string;
 }

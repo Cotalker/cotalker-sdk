@@ -1,4 +1,5 @@
-import { GenericQueryParams, ObjectId } from '@customTypes/custom'
+import { genericQueryParams, ObjectId } from '@customTypes/custom'
+import { z } from 'zod'
 
 export declare interface COTSurvey {
   chat: QuestionChat[];
@@ -18,9 +19,12 @@ export declare interface Question {
   code: string;
 }
 
-export type SurveysQueryParams = GenericQueryParams & {
-  search?: string;
-  answer?: string | string[];
-  select?: string | string[];
-  debug?: string;
-}
+const surveysQueryParamsSpecific =  z.object({
+  search: z.string(),
+  answer: z.string().or(z.array(z.string())),
+  select: z.string().or(z.array(z.string())),
+  debug: z.string(),
+}).partial().strict()
+
+export const surveysQueryParams = surveysQueryParamsSpecific.merge(genericQueryParams)
+export type SurveysQueryParams = z.infer<typeof surveysQueryParams>

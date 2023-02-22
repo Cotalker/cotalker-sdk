@@ -1,5 +1,6 @@
-import { AccessRolesQueryParams, COTAccessRole } from '@customTypes/COTTypes/COTAccessRole'
+import { AccessRolesQueryParams, accessRolesQueryParams, COTAccessRole } from '@customTypes/COTTypes/COTAccessRole'
 import { QueryHandler } from '@utils/QueryHandler'
+import { queryValidator } from '@utils/QueryValidator'
 import { AxiosInstance } from 'axios'
 
 export default class COTAccessRolesClient {
@@ -14,14 +15,16 @@ export default class COTAccessRolesClient {
   }
 
   public async getAccessRoleQuery(query:AccessRolesQueryParams): Promise<COTAccessRole[]> {
+    queryValidator(accessRolesQueryParams, query)
     return (await this.queryHandler.getQuery(query)).accessRoles
   }
 
-  public async getAllAccessRolesInQuery(query:AccessRolesQueryParams): Promise<COTAccessRole[]> {
+  public async getAllAccessRolesInQuery(query: AccessRolesQueryParams): Promise<COTAccessRole[]> {
+    queryValidator(accessRolesQueryParams, query)
     return this.queryHandler.getAllInQuery(query)
   }
 
-  public async searchAccessRolesByName(search: string): Promise<COTAccessRole[]> {
+  public async searchAccessRoles(search: string): Promise<COTAccessRole[]> {
     return this.getAccessRoleQuery({ search })
   }
 

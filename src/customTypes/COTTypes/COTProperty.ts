@@ -1,4 +1,5 @@
-import { DateQueryParams, GenericQueryParams, ObjectId } from '@customTypes/custom'
+import { dateQueryParams, genericQueryParams, ObjectId, objectId } from '@customTypes/custom'
+import { z } from 'zod'
 
 export declare interface COTProperty {
   _id: ObjectId;
@@ -16,16 +17,18 @@ export interface SearchPropertyQueryOptions {
   parent?: string | string[];
 }
 
-export type PropertiesQueryParams = GenericQueryParams & 
-DateQueryParams & {
-  search?: string;
-  propertyTypes?: string[];
-  codes?: string[];
-  'owner[$ref]'?: 'user' | 'task';
-  'owner[$id]'?: ObjectId;
-  ids?: ObjectId[];
-  parent?: ObjectId;
-  orderBy?:string;
-  sortBy?: string;
-  debug?: string;
-}
+const propertiesQueryParamsSpecific = z.object({
+  search: z.string(),
+  orderBy: z.string(),
+  sortBy: z.string(),
+  propertyTypes: z.array(z.string()),
+  codes: z.array(z.string()),
+  'owner[$ref]': z.union([z.literal('user'), z.literal('task')]),
+  'owner[$id]': objectId,
+  ids: objectId,
+  parent: objectId,
+  debug: z.literal('true'),
+}).partial().strict()
+
+export const propertiesQueryParams = propertiesQueryParamsSpecific.merge(genericQueryParams).merge(dateQueryParams)
+export type PropertiesQueryParams = z.infer<typeof propertiesQueryParams>

@@ -1,5 +1,5 @@
-import { GenericQueryParams, ObjectId } from '@customTypes/custom'
-
+import { genericQueryParams, ObjectId } from '@customTypes/custom'
+import { z } from 'zod'
 
 export declare interface COTAccessRole {
   _id: ObjectId;
@@ -10,8 +10,11 @@ export declare interface COTAccessRole {
   company: ObjectId;
 }
 
-export type AccessRolesQueryParams = GenericQueryParams & {
-  ids?: ObjectId;
-  search?: string;
-  debug?: string;
-}
+const accessRolesQueryParamsSpecific = z.object({
+  ids: z.string().regex(new RegExp('^[a-fA-F0-9]{24}$')),
+  search: z.string(),
+  debug: z.literal('true'),
+}).partial().strict()
+
+export const accessRolesQueryParams = accessRolesQueryParamsSpecific.merge(genericQueryParams)
+export type AccessRolesQueryParams = z.infer<typeof accessRolesQueryParams>

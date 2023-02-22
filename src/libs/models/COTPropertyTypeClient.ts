@@ -1,7 +1,8 @@
 import { COTProperty, SearchPropertyQueryOptions } from '@customTypes/COTTypes/COTProperty'
-import { COTPropertyType, PropertyTypesQueryParams } from '@customTypes/COTTypes/COTPropertyType'
+import { COTPropertyType, PropertyTypesQueryParams, propertyTypesQueryParams } from '@customTypes/COTTypes/COTPropertyType'
 import { ObjectId } from '@customTypes/custom'
 import { QueryHandler } from '@utils/QueryHandler'
+import { queryValidator } from '@utils/QueryValidator'
 import { AxiosInstance } from 'axios'
 import { URLSearchParams } from 'url'
 
@@ -16,10 +17,12 @@ export default class COTPropertyTypeClient {
   }
 
   public async getPropertyTypeQuery(query: PropertyTypesQueryParams): Promise<COTPropertyType> {
+    queryValidator(propertyTypesQueryParams, query)
     return (await this.queryHandler.getQuery(query)).propertyTypes[0]
   }
 
   public async getAllPropertyTypesInQuery(query:PropertyTypesQueryParams): Promise<COTPropertyType[]> {
+    queryValidator(propertyTypesQueryParams, query)
     return this.queryHandler.getAllInQuery(query)
   }
 

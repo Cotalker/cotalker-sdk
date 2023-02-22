@@ -1,4 +1,4 @@
-import { EditMsgBody, SendEnrichedMsgBody, SendMsgBody } from '@customTypes/COTTypes/COTMessage'
+import { EditMsgBody, SendMsgBody } from '@customTypes/COTTypes/COTMessage'
 import { ObjectId } from '@customTypes/custom'
 import { AxiosInstance } from 'axios'
 
@@ -9,7 +9,7 @@ export default class COTMessageClient {
     this._instance = instance
   }
 
-  async sendMessage<T>(body: SendMsgBody | SendEnrichedMsgBody): Promise<T> {
+  async sendMessage<T>(body: SendMsgBody): Promise<T> {
     return (await this._instance.post<{ data: T }>('/api/v1/messages', body)).data
   }
   

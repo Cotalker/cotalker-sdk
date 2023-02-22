@@ -1,7 +1,8 @@
 import { JSONPatchBody } from '@customTypes/COTTypes/APIGenerics'
-import { COTUser, COTUserActivity, UsersQueryParams } from '@customTypes/COTTypes/COTUser'
+import { COTUser, COTUserActivity, UsersQueryParams, usersQueryParams } from '@customTypes/COTTypes/COTUser'
 import { ObjectId } from '@customTypes/custom'
 import { QueryHandler } from '@utils/QueryHandler'
+import { queryValidator } from '@utils/QueryValidator'
 import { AxiosInstance } from 'axios'
 import * as querystring from 'querystring'
 
@@ -18,16 +19,14 @@ export default class COTUserClient {
     this._instance = instance
     this.queryHandler = new QueryHandler('users', this._instance)
   }
-
-  public async getUserQuery(query:UsersQueryParams): Promise<COTUser> {
-    return this.getUsersQuery(query)[0]
-  }
   
   public async getUsersQuery(query:UsersQueryParams): Promise<COTUser[]> {
+    queryValidator(usersQueryParams, query)
     return (await this.queryHandler.getQuery(query)).users
   }
   
   public async getAllUsersInQuery(query:UsersQueryParams): Promise<COTUser[]> {
+    queryValidator(usersQueryParams, query)
     return this.queryHandler.getAllInQuery(query)
   }
 
@@ -44,21 +43,13 @@ export default class COTUserClient {
   }
   
   public async getUserByEmail(email: string): Promise<COTUser> {
-    return (this.getUserQuery({ email }))
+    return (this.getUsersQuery({ email }))[0]
   }
   
   public async getUsersByEmail(email: string[] | string ): Promise<COTUser[]> {
     return this.getAllUsersInQuery({ email })
   }
-  
-  public async getUsersByRole(role: string): Promise<COTUser[]> {
-    return this.getAllUsersInQuery({ role })
-  }
-  
-  public async getUsersByJobTitle(jobTitle: string): Promise<COTUser[]> {
-    return this.getAllUsersInQuery({ jobTitle })
-  }
-  
+
   public async getUsersByRelation(type: AllowedRelation, _id: ObjectId): Promise<COTUser[]> {
     return (await this._instance.get(`/api/v2/users/relations/${type}/${_id}?limit=100&isActive=true`))?.data?.users ?? ''
   }

@@ -2,7 +2,7 @@
 import { IsActiveOptions, JSONPatchBody } from '@customTypes/COTTypes/APIGenerics'
 import { AccessRolesQueryParams } from '@customTypes/COTTypes/COTAccessRole'
 import { AnswersQueryParams } from '@customTypes/COTTypes/COTAnswer'
-import { COTChannel } from '@customTypes/COTTypes/COTChannel'
+import { ChannelsQueryParams, COTChannel } from '@customTypes/COTTypes/COTChannel'
 import { EditMsgBody, SendMsgBody } from '@customTypes/COTTypes/COTMessage'
 import { COTProperty, PropertiesQueryParams, SearchPropertyQueryOptions } from '@customTypes/COTTypes/COTProperty'
 import { PropertyTypesQueryParams } from '@customTypes/COTTypes/COTPropertyType'
@@ -118,7 +118,7 @@ export class CotalkerAPI extends HttpClient {
   
   /* COTAccessRole */
   async searchAccessRole(search: string) {
-    const accessRole = await this._cotaccessRolesClient.searchAccessRolesByName(search)
+    const accessRole = await this._cotaccessRolesClient.searchAccessRoles(search)
     return accessRole
   }
 
@@ -272,11 +272,6 @@ export class CotalkerAPI extends HttpClient {
     return survey
   }
 
-  async getAllSurveysInQuery(query: SurveysQueryParams) {
-    const survey = await this._cotsurveyClient.getAllSurveysInQuery(query)
-    return survey
-  }
-
   /* COTProperty */
   async getProperty(id: ObjectId) {
     const property = await this._cotpropertyClient.getProperty(id)
@@ -325,16 +320,30 @@ export class CotalkerAPI extends HttpClient {
     const property = await this._cotpropertyTypeClient.getExtensionProperty(taskId, extensionKey)
     return property
   }
-
+  
   async searchProperty(search: string, propertyType?: string, options?: SearchPropertyQueryOptions) {
     const property = await this._cotpropertyTypeClient.searchProperty(search, propertyType, options)
     return property
   }
-
+  
   /* QUERIES */
+  
+  //accessRoles
+  async getAccessRoleQuery(query:AccessRolesQueryParams) {
+    const accessRoles = await this._cotaccessRolesClient.getAccessRoleQuery(query)
+    return accessRoles
+  }
 
+  async getAllAccessRolesInQuery(query:AccessRolesQueryParams) {
+    const accessRoles = await this._cotaccessRolesClient.getAllAccessRolesInQuery(query)
+    return accessRoles
+  }
+  
   //channels
-  //surveys
+  async getChannelsQuery(query: ChannelsQueryParams) {
+    const property = await this._cotchannelClient.getChannelsQuery(query)
+    return property
+  }
   
   //properties
   async getPropertiesQuery(query: PropertiesQueryParams) {
@@ -342,21 +351,6 @@ export class CotalkerAPI extends HttpClient {
     return property
   }
   
-  //users
-  async getUserQuery(query: UsersQueryParams) {
-    const property = await this._cotuserClient.getUserQuery(query)
-    return property
-  }
-  
-  async getUsersQuery(query: UsersQueryParams) {
-    const property = await this._cotuserClient.getUsersQuery(query)
-    return property
-  }
-  
-  async getAllUsersInQuery(query: UsersQueryParams) {
-    const property = await this._cotuserClient.getAllUsersInQuery(query)
-    return property
-  }
   
   //propertyTypes
   async getPropertyTypeQuery(query: PropertyTypesQueryParams) {
@@ -368,22 +362,32 @@ export class CotalkerAPI extends HttpClient {
     const property = await this._cotpropertyTypeClient.getAllPropertyTypesInQuery(query)
     return property
   }
+  
+  //surveys
+  async getSurveyQuery(query: SurveysQueryParams) {
+    const survey = await this._cotsurveyClient.getSurveyQuery(query)
+    return survey
+  }
+
+  async getAllSurveysInQuery(query: SurveysQueryParams) {
+    const survey = await this._cotsurveyClient.getAllSurveysInQuery(query)
+    return survey
+  }
+  
+  //users
+  async getUsersQuery(query: UsersQueryParams) {
+    const property = await this._cotuserClient.getUsersQuery(query)
+    return property
+  }
+  
+  async getAllUsersInQuery(query: UsersQueryParams) {
+    const property = await this._cotuserClient.getAllUsersInQuery(query)
+    return property
+  }
 
   //answers
   async getAnswersQuery(query: AnswersQueryParams) {
     const answers = await this._cotanswerClient.getAnswersQuery(query)
     return answers
-  }
-
-  //accessRoles
-  
-  async getAccessRoleQuery(query:AccessRolesQueryParams) {
-    const accessRoles = await this._cotaccessRolesClient.getAccessRoleQuery(query)
-    return accessRoles
-  }
-
-  async getAllAccessRolesInQuery(query:AccessRolesQueryParams) {
-    const accessRoles = await this._cotaccessRolesClient.getAllAccessRolesInQuery(query)
-    return accessRoles
   }
 }

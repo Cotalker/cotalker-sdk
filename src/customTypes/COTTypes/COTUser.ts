@@ -1,4 +1,5 @@
-import { DateQueryParams, GenericQueryParams, ObjectId } from '@customTypes/custom'
+import { dateQueryParams, genericQueryParams, ObjectId, objectId } from '@customTypes/custom'
+import { z } from 'zod'
 
 export declare interface COTUser {
   _id: ObjectId;
@@ -112,19 +113,19 @@ export declare interface COTUserActivityConnectionStatus {
   lastOnline?: string;
 }
 
-export type UsersQueryParams = GenericQueryParams &
-DateQueryParams &  {
-  search?: string;
-  orderBy?:string;
-  sortBy?: string;
-  email?: string[] | string;
-  bot?: ObjectId;
-  id?: ObjectId;
-  relatedUser?: ObjectId;
-  property?: ObjectId;
-  accessRole?: ObjectId;
-  role?: string;
-  job?: ObjectId;
-  jobTitle?: string;
-  debug?: 'true'
-}
+const usersQueryParamsSpecific = z.object({
+  search: z.string(),
+  orderBy: z.string(),
+  sortBy: z.string(),
+  email: z.string().email().or(z.array(z.string().email())),
+  bot: objectId,
+  id: objectId,
+  relatedUser: objectId,
+  property: objectId,
+  accessRole: objectId,
+  job: objectId,
+  debug: z.literal('true'),
+}).partial().strict()
+
+export const usersQueryParams = usersQueryParamsSpecific.merge(genericQueryParams).merge(dateQueryParams)
+export type UsersQueryParams = z.infer<typeof usersQueryParams>

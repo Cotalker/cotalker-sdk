@@ -1,4 +1,4 @@
-import { DateQueryParams, GenericQueryParams, ObjectId } from '@customTypes/custom'
+import { ObjectId } from '@customTypes/custom'
 
 export declare class COTTask {
   _id: ObjectId
@@ -143,10 +143,4 @@ export interface MultiTaskBody {
     method: string;
     task: COTTask;
   }[];
-}
-
-export type TasksQueryParams = GenericQueryParams &
-DateQueryParams &  {
-  ids?: ObjectId;
-  groupIds?: ObjectId;
 }

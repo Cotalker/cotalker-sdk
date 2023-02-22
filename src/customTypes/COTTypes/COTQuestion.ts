@@ -1,4 +1,5 @@
-import { DateQueryParams, GenericQueryParams, ObjectId } from '@customTypes/custom'
+import { dateQueryParams, genericQueryParams, ObjectId, objectId } from '@customTypes/custom'
+import { z } from 'zod'
 
 export declare type COTQuestionContentType =
 'application/vnd.cotalker.survey+text' |
@@ -63,9 +64,11 @@ export declare interface COTQuestion {
   skipCodeValidation?: boolean;
 }
 
-export type QuestionsQueryParams = GenericQueryParams &
-DateQueryParams &  {
-  ids?: ObjectId;
-  _id?: ObjectId;
-  debug?: 'true'
-}
+const questionQueryParamsSpecific = z.object({
+  ids: objectId,
+  _id: objectId,
+  debug: z.literal('true'),
+}).partial().strict()
+
+export const questionQueryParams = questionQueryParamsSpecific.merge(genericQueryParams).merge(dateQueryParams)
+export type QuestionQueryParams = z.infer<typeof questionQueryParams>

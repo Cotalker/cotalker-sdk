@@ -1,4 +1,5 @@
-import { GenericQueryParams, ObjectId } from '@customTypes/custom'
+import { genericQueryParams, ObjectId, objectId } from '@customTypes/custom'
+import { z } from 'zod'
 
 import { COTQuestionContentType } from './COTQuestion'
 
@@ -34,20 +35,20 @@ export declare interface COTAnswer {
   };
 }
 
+const answersQueryParamsSpecific = z.object({
+  search: z.string(),
+  orderBy: z.string(),
+  sortBy: z.string(),
+  user: objectId,
+  survey: objectId,
+  surveysIds: objectId,
+  properties: objectId,
+  answerUuids: objectId,
+  fullMatchProperties: z.boolean(),
+  modifiedAtGte: z.date(),
+  modifiedAtLte: z.date(),
+  debug: z.literal('true'),
+}).partial().strict()
 
-export type AnswersQueryParams = GenericQueryParams & {
-  extra?: string[];
-  user?: ObjectId;
-  survey?: ObjectId;
-  surveyIds?: ObjectId;
-  properties?: ObjectId;
-  answerUuids?: ObjectId;
-  fullMatchProperties?: boolean;
-  modifiedAtGte?: string;
-  modifiedAtLte?: string;
-  search?: string;
-  orderBy?:string;
-  sortBy?: string;
-  debug?: 'true'
-}
-
+export const answersQueryParams = answersQueryParamsSpecific.merge(genericQueryParams)
+export type AnswersQueryParams = z.infer<typeof answersQueryParams>

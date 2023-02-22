@@ -1,6 +1,7 @@
-import { COTSurvey, SurveysQueryParams } from '@customTypes/COTTypes/COTSurvey'
+import { COTSurvey, SurveysQueryParams, surveysQueryParams } from '@customTypes/COTTypes/COTSurvey'
 import { ObjectId } from '@customTypes/custom'
 import { QueryHandler } from '@utils/QueryHandler'
+import { queryValidator } from '@utils/QueryValidator'
 import { AxiosInstance } from 'axios'
 
 export default class COTSurveyClient {
@@ -22,10 +23,12 @@ export default class COTSurveyClient {
   }
 
   public async getSurveyQuery(query:SurveysQueryParams): Promise<COTSurvey> {
+    queryValidator(surveysQueryParams, query)
     return (await this.queryHandler.getQuery(query)).surveys[0]
   }
   
   public async getAllSurveysInQuery(query:SurveysQueryParams): Promise<COTSurvey[]> {
+    queryValidator(surveysQueryParams, query)
     return this.queryHandler.getAllInQuery(query)
   }
   

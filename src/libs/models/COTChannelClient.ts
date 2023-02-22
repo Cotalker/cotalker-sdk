@@ -1,5 +1,6 @@
-import { ChannelsQueryParams, COTChannel } from '@customTypes/COTTypes/COTChannel'
+import { ChannelsQueryParams, channelsQueryParams, COTChannel } from '@customTypes/COTTypes/COTChannel'
 import { QueryHandler } from '@utils/QueryHandler'
+import { queryValidator } from '@utils/QueryValidator'
 import { AxiosInstance } from 'axios'
 
 export default class COTChannelClient {
@@ -14,6 +15,7 @@ export default class COTChannelClient {
   }
 
   public async getChannelsQuery(query:ChannelsQueryParams): Promise<COTChannel[]> {
+    queryValidator(channelsQueryParams, query)
     return (await this.queryHandler.getQuery(query)).channels
   }
 
