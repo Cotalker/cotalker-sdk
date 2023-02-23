@@ -12,6 +12,7 @@ export declare interface COTAnswerData {
   group: string;
   user: ObjectId;
 }
+
 export declare interface COTAnswer {
   _id: ObjectId;
   uuid: string;
