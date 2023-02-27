@@ -9,16 +9,16 @@ export declare interface ScheduleBody {
   time?: Date;
 }
 
-type botNext =
+type BotNext =
   Record<'DEFAULT', string> |
   Record<'SUCCESS' | 'ERROR', string> |
   Record<'CREATED' | 'NOT-CREATED', string> |
   Record<'STEP' | 'DONE', string>
-declare interface botStage {
+declare interface BotStage {
   name: string;
   key: string;
   data: Record<string, unknown>;
-  next: botNext;
+  next: BotNext;
 }
 
 export interface SchedulePostResponse {
@@ -29,6 +29,6 @@ export declare interface ScheduleBotBody {
   start: string;
   version: 1 | 2 | 3;
   maxIterations: number;
-  stages: botStage[];
+  stages: BotStage[];
   data: Record<string, unknown>;
 }

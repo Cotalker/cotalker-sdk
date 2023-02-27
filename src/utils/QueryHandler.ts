@@ -43,6 +43,7 @@ export class QueryHandler<T> {
       count = response[count]
       result.push(...(response[this.entity] || []))
       paginationQuery.page++
+      paginationQuery.count = false
     } while (result.length < count)
     return result
   }

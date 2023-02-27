@@ -1,4 +1,4 @@
-import { genericQueryParams, ObjectId } from '@customTypes/custom'
+import { genericQueryParams, ObjectId, objectId } from '@customTypes/custom'
 import { z } from 'zod'
 
 export declare interface COTAccessRole {
@@ -11,7 +11,7 @@ export declare interface COTAccessRole {
 }
 
 const accessRolesQueryParamsSpecific = z.object({
-  ids: z.string().regex(new RegExp('^[a-fA-F0-9]{24}$')),
+  ids: objectId,
   search: z.string(),
   debug: z.literal('true'),
 }).partial().strict()
